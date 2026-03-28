@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class LocationManager : SingletonBehaviour<LocationManager>
+{
+    [SerializeField] LocationPoint _classroom;  // Fixed
+    [SerializeField] LocationPoint _dormitory;  // Dynamic
+    [SerializeField] LocationPoint _gym;        // Dynamic
+    [SerializeField] LocationPoint _trail;      // Dynamic
+
+    public void Init()
+    {
+        Debug.Log("[LocationManager] Init 완료");
+    }
+
+    // AssignedAction 기준 장소 반환
+    public LocationPoint GetLocation(AssignedAction action) => action switch
+    {
+        AssignedAction.Planning
+        or AssignedAction.Client
+        or AssignedAction.Art
+        or AssignedAction.SelfStudy_Planning
+        or AssignedAction.SelfStudy_Client
+        or AssignedAction.SelfStudy_Art
+        or AssignedAction.Meeting => _classroom,
+        _ => _classroom
+    };
+
+    // RuntimeAction 기준 장소 반환
+    public LocationPoint GetLocation(RuntimeAction action) => action switch
+    {
+        RuntimeAction.Rest => _dormitory,
+        RuntimeAction.Exercise => _gym,
+        _ => _classroom
+    };
+}

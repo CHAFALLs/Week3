@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6313036136343293093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2471987115252031981}
+  - component: {fileID: 1233791171278585706}
+  m_Layer: 0
+  m_Name: '@CharacterManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2471987115252031981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6313036136343293093}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1233791171278585706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6313036136343293093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c1b7eacd224cd4d96ddf0dc479d90d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterManager
+  _characterPool:
+  - {fileID: 11400000, guid: 9280fb1ada7233443b75943c7ffc730d, type: 2}
+  - {fileID: 11400000, guid: 025c4c7c99a21244585ec8fe7b2e16ed, type: 2}
+  - {fileID: 11400000, guid: 3dbd8ff444827e34ab89d48919166678, type: 2}
+  - {fileID: 11400000, guid: 6fa49c3b2c5f54240a418431d1569316, type: 2}
+  - {fileID: 11400000, guid: 603745258cd8c364c92da755041ceb39, type: 2}
+  - {fileID: 11400000, guid: f7f9c28b9fbbb434e80f9807d48cc9bb, type: 2}
+  - {fileID: 11400000, guid: 554f6985292565d45ba15e055f46ecf0, type: 2}
+  - {fileID: 11400000, guid: 56795019d7cba5f42974590106bb8a8e, type: 2}
+  - {fileID: 11400000, guid: e5883b3d71486cd4c914f3747c5238a4, type: 2}
+  - {fileID: 11400000, guid: f0a99344db2bd784ca372b672fc541c5, type: 2}
+  _teamSize: 5
