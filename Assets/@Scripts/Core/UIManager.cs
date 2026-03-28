@@ -7,7 +7,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] UI_CharacterBar _characterBar;
     [SerializeField] UI_Hud _hud;
     // [SerializeField] EventPanelUI      _eventPanel;
-    // [SerializeField] MeetingPopupUI    _meetingPopup;
+    [SerializeField] UI_MeetingPopup _meetingPopup;
     // [SerializeField] DayEndUI          _dayEnd;
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
@@ -25,7 +25,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         _characterBar.Init();
         _hud.Init();
         // _eventPanel.Init();
-        // _meetingPopup.Init();
+        _meetingPopup.Init();
         // _dayEnd.Init();
         Debug.Log("[UIManager] GameUI Init 諫猿");
     }
