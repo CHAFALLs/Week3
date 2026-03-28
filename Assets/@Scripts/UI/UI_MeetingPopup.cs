@@ -16,14 +16,12 @@ public class UI_MeetingPopup : MonoBehaviour
         _root.SetActive(false);
         _startButton.onClick.AddListener(OnStartClicked);
 
-        // 회의 시작 이벤트 구독
-        TimeManager.Instance.OnMeetingStart += Show;
     }
 
     // ─────────────────────────────────────────────────
     //  Show / Hide
     // ─────────────────────────────────────────────────
-    void Show(TimeManager.DayPhase phase)
+    public void Show(TimeManager.DayPhase phase)
     {
         _titleText.text = phase switch
         {
@@ -67,6 +65,12 @@ public class UI_MeetingPopup : MonoBehaviour
     // ─────────────────────────────────────────────────
     void OnStartClicked()
     {
+
+        // 전체 카드 선택값 한번에 반영
+        foreach (var card in _cards)
+            if (card.gameObject.activeSelf)
+                card.ApplySelection();
+
         Hide();
         TimeManager.Instance.EndMeeting();
     }

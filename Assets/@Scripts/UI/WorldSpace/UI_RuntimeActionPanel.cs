@@ -1,0 +1,104 @@
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UI_RuntimeActionPanel : MonoBehaviour
+{
+    [Header("References")]
+    [SerializeField] GameObject _root;
+    [SerializeField] Button _blocker;        // 전체 화면 투명 버튼
+    [SerializeField] Button _restButton;
+    [SerializeField] Button _exerciseButton;
+    [SerializeField] Button _coffeeButton;
+
+    CharacterEntity _entity;
+
+    void Awake()
+    {
+
+        GetComponent<Canvas>().worldCamera = Camera.main;
+
+        _root.SetActive(false);
+
+        _blocker.onClick.AddListener(Hide);
+        _restButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Rest));
+        _exerciseButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Exercise));
+        _coffeeButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Coffee));
+    }
+
+    // ─────────────────────────────────────────────────
+    //  Show / Hide
+    // ─────────────────────────────────────────────────
+    public void Show(CharacterEntity entity)
+    {
+        // 이미 열려있으면 닫기
+        if (_root.activeSelf)
+        {
+            Hide();
+            return;
+        }
+
+        _entity = entity;
+        RefreshButtons();
+
+        _root.SetActive(true);
+        _root.transform.localScale = Vector3.zero;
+        _root.transform.DOScale(1f, 0.15f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
+    }
+
+    public void Hide()
+    {
+        _root.transform.DOScale(0f, 0.1f)
+            .SetEase(Ease.InBack)
+            .SetUpdate(true)
+            .OnComplete(() => _root.SetActive(false));
+    }
+
+    // ─────────────────────────────────────────────────
+    //  버튼 상태 갱신
+    // ─────────────────────────────────────────────────
+    void RefreshButtons()
+    {
+        SetButtonState(_restButton, RuntimeAction.Rest);
+        SetButtonState(_exerciseButton, RuntimeAction.Exercise);
+        SetButtonState(_coffeeButton, RuntimeAction.Coffee);
+    }
+
+    void SetButtonState(Button button, RuntimeAction action)
+    {
+        bool isActive = _entity.ActiveRuntime == action;
+        var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        if (text == null) return;
+
+        text.text = action switch
+        {
+            RuntimeAction.Rest => isActive ? "휴식 종료" : "휴식",
+            RuntimeAction.Exercise => isActive ? "헬스 종료" : "헬스",
+            RuntimeAction.Coffee => isActive ? "커피 종료" : "커피",
+            _ => ""
+        };
+    }
+
+    // ─────────────────────────────────────────────────
+    //  버튼 클릭
+    // ─────────────────────────────────────────────────
+    void OnActionSelected(RuntimeAction action)
+    {
+        if (_entity == null) return;
+
+        if (_entity.ActiveRuntime == action)
+        {
+            if (_entity.State == CharacterState.Down) return;
+            _entity.ClearRuntimeAction();
+        }
+        else
+        {
+            _entity.SetRuntimeAction(action);
+        }
+
+        RefreshButtons();
+        Hide();  // 선택 후 패널 닫기
+    }
+}

@@ -73,7 +73,7 @@ public class CharacterEntity
 
         Condition = 100;
         _prevState = CharacterState.Normal;
-        AssignedAction = AssignedAction.Meeting;
+        AssignedAction = AssignedAction.Planning;
         ActiveRuntime = null;
         IsOvertime = false;
 
@@ -252,7 +252,6 @@ public enum StatType
 // 회의에서 배분 — 시간대 메인 작업
 public enum AssignedAction
 {
-    Meeting,             // 회의
     Planning,            // 기획
     Art,                 // 아트
     Client,              // 클라 개발

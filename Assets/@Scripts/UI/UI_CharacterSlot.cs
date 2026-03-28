@@ -82,7 +82,6 @@ public class UI_CharacterSlot : MonoBehaviour, IPointerClickHandler
             AssignedAction.SelfStudy_Planning => "📖",
             AssignedAction.SelfStudy_Client => "📖",
             AssignedAction.SelfStudy_Art => "📖",
-            AssignedAction.Meeting => "🗣️",
             _ => "💤"
         };
     }

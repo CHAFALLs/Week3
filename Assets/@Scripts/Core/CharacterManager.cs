@@ -19,7 +19,8 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
     public event Action<CharacterEntity> OnCharacterDown;       // 캐릭터 다운
     public event Action<CharacterEntity> OnCharacterRecovered;  // 다운 → Sick 회복
 
-    bool _initialized = false;
+    private bool _initialized = false;
+    private int _arrivedAtMeetingCount = 0;
 
     // ─────────────────────────────────────────────────
     //  Init
@@ -81,7 +82,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
 
     void SpawnCharacters(CharacterData[] dataArray)
     {
-        var classroom = LocationManager.Instance.GetLocation(AssignedAction.Meeting);
+        var classroom = LocationManager.Instance.GetLocation(AssignedAction.Planning);
 
         for (int i = 0; i < dataArray.Length; i++)
         {
@@ -100,9 +101,28 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             go.name = dataArray[i].CharacterName;
 
             var view = go.GetComponent<CharacterView>();
-            view?.Init(_characters[i]);
+            var handler = go.GetComponent<CharacterClickHandler>();
 
+            if (view != null)
+            {
+                view.Init(_characters[i]);
+                view.OnArrivedAtMeeting += OnCharacterArrivedAtMeeting;
+            }
+
+            handler?.Init(_characters[i]);
             Debug.Log($"[CharacterManager] {dataArray[i].CharacterName} 스폰 완료");
+        }
+    }
+
+    void OnCharacterArrivedAtMeeting(CharacterView view)
+    {
+        _arrivedAtMeetingCount++;
+
+        // 회의 참여 가능한 캐릭터 전원 도착 시 팝업
+        if (_arrivedAtMeetingCount >= GetAvailable().Count)
+        {
+            _arrivedAtMeetingCount = 0;
+            UIManager.Instance.ShowMeetingPopup();
         }
     }
 
@@ -200,7 +220,6 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             AssignedAction.SelfStudy_Planning
             or AssignedAction.SelfStudy_Client
             or AssignedAction.SelfStudy_Art => 8,
-            AssignedAction.Meeting => 5,
             _ => 3
         };
 

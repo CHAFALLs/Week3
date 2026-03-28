@@ -3,6 +3,8 @@ using UnityEngine;
 public class LocationManager : SingletonBehaviour<LocationManager>
 {
     [SerializeField] LocationPoint _classroom;  // Fixed
+    [SerializeField] LocationPoint _meetingRoom;    // Fixed
+    [SerializeField] LocationPoint _cafeteria;   // Dynamic
     [SerializeField] LocationPoint _dormitory;  // Dynamic
     [SerializeField] LocationPoint _gym;        // Dynamic
     [SerializeField] LocationPoint _trail;      // Dynamic
@@ -12,6 +14,9 @@ public class LocationManager : SingletonBehaviour<LocationManager>
         Debug.Log("[LocationManager] Init 완료");
     }
 
+    // 회의실 접근자
+    public LocationPoint GetMeetingRoom() => _meetingRoom;
+
     // AssignedAction 기준 장소 반환
     public LocationPoint GetLocation(AssignedAction action) => action switch
     {
@@ -20,8 +25,7 @@ public class LocationManager : SingletonBehaviour<LocationManager>
         or AssignedAction.Art
         or AssignedAction.SelfStudy_Planning
         or AssignedAction.SelfStudy_Client
-        or AssignedAction.SelfStudy_Art
-        or AssignedAction.Meeting => _classroom,
+        or AssignedAction.SelfStudy_Art => _classroom,
         _ => _classroom
     };
 
@@ -30,6 +34,7 @@ public class LocationManager : SingletonBehaviour<LocationManager>
     {
         RuntimeAction.Rest => _dormitory,
         RuntimeAction.Exercise => _gym,
+        RuntimeAction.Coffee => _cafeteria,
         _ => _classroom
     };
 }

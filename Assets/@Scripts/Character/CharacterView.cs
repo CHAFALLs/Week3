@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class CharacterView : MonoBehaviour
@@ -7,6 +8,8 @@ public class CharacterView : MonoBehaviour
 
     LocationPoint _currentLocation;
     Transform _currentSlot;
+
+    public event Action<CharacterView> OnArrivedAtMeeting;
 
     // ─────────────────────────────────────────────────
     //  Init
@@ -17,6 +20,11 @@ public class CharacterView : MonoBehaviour
 
         // 행동 변경 시 이동
         _entity.OnActionChanged += _ => OnActionChanged();
+
+        // 회의 시작 → 회의실로 이동
+        TimeManager.Instance.OnMeetingStart += _ => MoveToMeetingRoom();
+        // 회의 끝 → 원래 행동 위치로 복귀
+        TimeManager.Instance.OnPhaseStart += _ => OnActionChanged();
 
         // 초기 위치 → 교육장 고정 자리
         OccupyClassroom();
@@ -61,7 +69,7 @@ public class CharacterView : MonoBehaviour
     // ─────────────────────────────────────────────────
     void OccupyClassroom()
     {
-        var classroom = LocationManager.Instance.GetLocation(AssignedAction.Meeting);
+        var classroom = LocationManager.Instance.GetLocation(AssignedAction.Planning);
         var slot = classroom.GetFixedSlot(_entity.Index);
 
         if (slot == null) return;
@@ -69,17 +77,37 @@ public class CharacterView : MonoBehaviour
         _currentLocation = classroom;
         _currentSlot = slot;
 
-        transform.position = slot.position;
     }
 
     // ─────────────────────────────────────────────────
     //  이동
     // ─────────────────────────────────────────────────
+    void MoveToMeetingRoom()
+    {
+        var meetingRoom = LocationManager.Instance.GetMeetingRoom();
+        if (meetingRoom == _currentLocation) return;
+
+        ReleaseCurrentSlot();
+
+        var slot = meetingRoom.GetFixedSlot(_entity.Index);
+        if (slot == null) return;
+
+        _currentLocation = meetingRoom;
+        _currentSlot = slot;
+
+        transform.DOKill();
+        transform.DOMove(_currentSlot.position, 0.5f)
+            .SetEase(Ease.InOutQuad)
+            .SetUpdate(true)
+            .OnComplete(() => OnArrivedAtMeeting?.Invoke(this));
+    }
+
     void MoveTo(Vector3 targetPos)
     {
         transform.DOKill();
         transform.DOMove(targetPos, 0.5f)
-            .SetEase(Ease.InOutQuad);
+            .SetEase(Ease.InOutQuad)
+            .SetUpdate(true);
     }
 
     void ReleaseCurrentSlot()

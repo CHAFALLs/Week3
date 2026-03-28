@@ -29,9 +29,7 @@ public class UI_MeetingCard : MonoBehaviour
     public void Setup(CharacterEntity entity)
     {
         _entity = entity;
-        _actionDropdown.onValueChanged.RemoveAllListeners();
         Refresh();
-        _actionDropdown.onValueChanged.AddListener(OnDropdownChanged);
     }
 
     // ─────────────────────────────────────────────────
@@ -91,11 +89,13 @@ public class UI_MeetingCard : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────
-    //  드롭다운 선택 → 행동 배분
+    //  Start 클릭 시 선택값 반영
     // ─────────────────────────────────────────────────
-    void OnDropdownChanged(int index)
+    public void ApplySelection()
     {
         if (_entity.State == CharacterState.Down) return;
+
+        int index = _actionDropdown.value;
         if (index < 0 || index >= _actionMap.Length) return;
         _entity.SetAssignedAction(_actionMap[index]);
     }

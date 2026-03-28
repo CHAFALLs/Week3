@@ -24,10 +24,15 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         _characterBar.Init();
         _hud.Init();
-        // _eventPanel.Init();
         _meetingPopup.Init();
+        // _eventPanel.Init();
         // _dayEnd.Init();
         Debug.Log("[UIManager] GameUI Init ¿Ï·á");
+    }
+
+    public void ShowMeetingPopup()
+    {
+        _meetingPopup.Show(TimeManager.Instance.CurrentDayPhase);
     }
 
     public void Clear() { }
