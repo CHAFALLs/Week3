@@ -18,6 +18,7 @@ public class TimeManager : SingletonBehaviour<TimeManager>
     public bool IsPaused { get; private set; }
     public bool IsInMeeting { get; private set; } // 회의 진입중.
     public float PhaseProgress => _timer / _phaseDuration; // 0~1, UI용
+    public int RemainingPhaseTime => Mathf.CeilToInt(_phaseDuration - _timer); // UI용 남은 시간
     public int RemainingDays => _totalDays - Day + 1;
 
     // ─── 이벤트 ──────────────────────────────────────
