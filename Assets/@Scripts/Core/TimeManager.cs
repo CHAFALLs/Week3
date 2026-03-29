@@ -1,46 +1,46 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class TimeManager : SingletonBehaviour<TimeManager>
 {
-    [Header("½Ã°£ ¼³Á¤")]
+    [Header("ì‹œê°„ ì„¤ì •")]
     [SerializeField] float _phaseDuration = 26f;
 
-    [Header("ÆäÀÌÁî °æ°è (ÀÏ¼ö ±âÁØ)")]
+    [Header("í˜ì´ì¦ˆ ê²½ê³„ (ì¼ìˆ˜ ê¸°ì¤€)")]
     [SerializeField] int _devStartDay = 4;
     [SerializeField] int _integStartDay = 9;
     [SerializeField] int _totalDays = 10;
 
-    // ¦¡¦¡¦¡ »óÅÂ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€ ìƒíƒœ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public int Day { get; private set; }
     public DayPhase CurrentDayPhase { get; private set; }
     public GamePhase CurrentGamePhase { get; private set; }
     public bool IsPaused { get; private set; }
-    public bool IsInMeeting { get; private set; } // È¸ÀÇ ÁøÀÔÁß.
-    public float PhaseProgress => _timer / _phaseDuration; // 0~1, UI¿ë
-    public int RemainingPhaseTime => Mathf.CeilToInt(_phaseDuration - _timer); // UI¿ë ³²Àº ½Ã°£
+    public bool IsInMeeting { get; private set; } // íšŒì˜ ì§„ì…ì¤‘.
+    public float PhaseProgress => _timer / _phaseDuration; // 0~1, UIìš©
+    public int RemainingPhaseTime => Mathf.CeilToInt(_phaseDuration - _timer); // UIìš© ë‚¨ì€ ì‹œê°„
     public int RemainingDays => _totalDays - Day + 1;
 
-    // ¦¡¦¡¦¡ ÀÌº¥Æ® ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-    public event Action<DayPhase> OnMeetingStart;      // È¸ÀÇ ½ÃÀÛ (ÀÚµ¿ ÀÏ½ÃÁ¤Áö)
-    public event Action<DayPhase> OnPhaseStart;        // ÆäÀÌÁî(½Ç½Ã°£) ½ÃÀÛÇÒ ¶§
-    public event Action<DayPhase> OnPhaseEnd;          // ÆäÀÌÁî ³¡³¯ ¶§
-    public event Action<bool> OnPauseChanged;      // ÀÏ½ÃÁ¤Áö »óÅÂ º¯°æ
-    public event Action<int> OnDayEnd;            // ³¯ Á¾·á
-    public event Action<GamePhase> OnGamePhaseChanged;  // ±âÈ¹¡æ°³¹ß¡æÅëÇÕ ÀüÈ¯
-    public event Action OnGameEnd;           // °ÔÀÓ Á¾·á
+    // â”€â”€â”€ ì´ë²¤íŠ¸ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    public event Action<DayPhase> OnMeetingStart;      // íšŒì˜ ì‹œì‘ (ìë™ ì¼ì‹œì •ì§€)
+    public event Action<DayPhase> OnPhaseStart;        // í˜ì´ì¦ˆ(ì‹¤ì‹œê°„) ì‹œì‘í•  ë•Œ
+    public event Action<DayPhase> OnPhaseEnd;          // í˜ì´ì¦ˆ ëë‚  ë•Œ
+    public event Action<bool> OnPauseChanged;      // ì¼ì‹œì •ì§€ ìƒíƒœ ë³€ê²½
+    public event Action<int> OnDayEnd;            // ë‚  ì¢…ë£Œ
+    public event Action<GamePhase> OnGamePhaseChanged;  // ê¸°íšâ†’ê°œë°œâ†’í†µí•© ì „í™˜
+    public event Action OnGameEnd;           // ê²Œì„ ì¢…ë£Œ
 
-    // ¦¡¦¡¦¡ ³»ºÎ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€ ë‚´ë¶€ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     float _timer = 0f;
     bool _initialized = false;
 
-    // ¦¡¦¡¦¡ Enum ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€ Enum â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     public enum DayPhase { Morning, Lunch, Evening }
     public enum GamePhase { Planning, Development, Integration }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     //   Init
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public void Init()
     {
@@ -50,21 +50,21 @@ public class TimeManager : SingletonBehaviour<TimeManager>
         Day = 1;
         CurrentDayPhase = DayPhase.Morning;
         CurrentGamePhase = GamePhase.Planning;
-        IsPaused = true;   // Ä³¸¯ÅÍ ¼±ÅÃ Àü±îÁö ÀÏ½ÃÁ¤Áö
+        IsPaused = true;   // ìºë¦­í„° ì„ íƒ ì „ê¹Œì§€ ì¼ì‹œì •ì§€
         IsInMeeting = false;
         _timer = 0f;
 
-        Debug.Log("[TimeController] Init ¿Ï·á");
+        Debug.Log("[TimeController] Init ì™„ë£Œ");
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     //  Update
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     void Update()
     {
         if (!_initialized) return;
 
-        // ½ºÆäÀÌ½º¹Ù ÀÏ½ÃÁ¤Áö (È¸ÀÇ Áß¿£ ºÒ°¡) TODO: new inputÀ¸·Î ÇÒ °ÍÀÓ.
+        // ìŠ¤í˜ì´ìŠ¤ë°” ì¼ì‹œì •ì§€ (íšŒì˜ ì¤‘ì—” ë¶ˆê°€) TODO: new inputìœ¼ë¡œ í•  ê²ƒì„.
         if (Input.GetKeyDown(KeyCode.Space) && !IsInMeeting)
             SetPause(!IsPaused);
 
@@ -78,18 +78,18 @@ public class TimeManager : SingletonBehaviour<TimeManager>
         }
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-    //  È¸ÀÇ
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    //  íšŒì˜
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     void StartMeeting()
     {
         IsInMeeting = true;
         SetPause(true);
         OnMeetingStart?.Invoke(CurrentDayPhase);
-        Debug.Log($"[È¸ÀÇ ½ÃÀÛ] {Day}ÀÏÂ÷ {CurrentDayPhase}");
+        Debug.Log($"[íšŒì˜ ì‹œì‘] {Day}ì¼ì°¨ {CurrentDayPhase}");
     }
 
-    // UI¿¡¼­ Çàµ¿ ¹èºĞ ¿Ï·á ÈÄ È£Ãâ
+    // UIì—ì„œ í–‰ë™ ë°°ë¶„ ì™„ë£Œ í›„ í˜¸ì¶œ
     public void EndMeeting()
     {
         if (!IsInMeeting) return;
@@ -97,13 +97,13 @@ public class TimeManager : SingletonBehaviour<TimeManager>
         IsInMeeting = false;
         SetPause(false);
         OnPhaseStart?.Invoke(CurrentDayPhase);
-        Debug.Log($"[ÁøÇà ½ÃÀÛ] {Day}ÀÏÂ÷ {CurrentDayPhase}");
+        Debug.Log($"[ì§„í–‰ ì‹œì‘] {Day}ì¼ì°¨ {CurrentDayPhase}");
     }
 
-    // Àú³á ¡æ ³Ñ±â±â (¾ß±Ù ¾øÀÌ ¹Ù·Î ´ÙÀ½³¯)
+    // ì €ë… â†’ ë„˜ê¸°ê¸° (ì•¼ê·¼ ì—†ì´ ë°”ë¡œ ë‹¤ìŒë‚ )
     public void SkipToNextDay()
     {
-        Debug.Log($"[³Ñ±â±â] ´ÙÀ½³¯·Î");
+        Debug.Log($"[ë„˜ê¸°ê¸°] ë‹¤ìŒë‚ ë¡œ");
         
         if (!IsInMeeting) return;
         IsInMeeting = false;
@@ -113,12 +113,12 @@ public class TimeManager : SingletonBehaviour<TimeManager>
         
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-    //  ½Ã°£ ÁøÇà
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    //  ì‹œê°„ ì§„í–‰
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     void AdvancePhase()
     {
-        OnPhaseEnd?.Invoke(CurrentDayPhase);  // ÆäÀÌÁî ³¡³¯ ¶§ ¹ßµ¿
+        OnPhaseEnd?.Invoke(CurrentDayPhase);  // í˜ì´ì¦ˆ ëë‚  ë•Œ ë°œë™
         int next = (int)CurrentDayPhase + 1;
 
         if (next > (int)DayPhase.Evening)
@@ -135,7 +135,7 @@ public class TimeManager : SingletonBehaviour<TimeManager>
     void EndDay()
     {
         OnDayEnd?.Invoke(Day);
-        Debug.Log($"[³¯ Á¾·á] {Day}ÀÏÂ÷");
+        Debug.Log($"[ë‚  ì¢…ë£Œ] {Day}ì¼ì°¨");
 
         Day++;
 
@@ -148,6 +148,11 @@ public class TimeManager : SingletonBehaviour<TimeManager>
         UpdateGamePhase();
 
         CurrentDayPhase = DayPhase.Morning;
+        //StartMeeting(); // íŠ¸ëœì§€ì…˜ ì™„ë£Œ í›„ í˜¸ì¶œ
+    }
+
+    public void StartNextDay()
+    {
         StartMeeting();
     }
 
@@ -166,19 +171,19 @@ public class TimeManager : SingletonBehaviour<TimeManager>
 
         CurrentGamePhase = next;
         OnGamePhaseChanged?.Invoke(CurrentGamePhase);
-        Debug.Log($"[ÆäÀÌÁî ÀüÈ¯] {CurrentGamePhase}");
+        Debug.Log($"[í˜ì´ì¦ˆ ì „í™˜] {CurrentGamePhase}");
     }
 
     void EndGame()
     {
         SetPause(true);
         OnGameEnd?.Invoke();
-        Debug.Log("[°ÔÀÓ Á¾·á]");
+        Debug.Log("[ê²Œì„ ì¢…ë£Œ]");
     }
 
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-    //  ÀÏ½ÃÁ¤Áö
-    // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    //  ì¼ì‹œì •ì§€
+    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     void SetPause(bool pause)
     {
         if (IsPaused == pause) return;
@@ -189,10 +194,10 @@ public class TimeManager : SingletonBehaviour<TimeManager>
 
     public void StartGame()
     {
-        StartMeeting();  // ¿©±â¼­ È£Ãâ
+        StartMeeting();  // ì—¬ê¸°ì„œ í˜¸ì¶œ
     }
 
-    // ¿ÜºÎ °­Á¦ ÀÏ½ÃÁ¤Áö (ÀÌº¥Æ® ÆË¾÷ µî)
+    // ì™¸ë¶€ ê°•ì œ ì¼ì‹œì •ì§€ (ì´ë²¤íŠ¸ íŒì—… ë“±)
     public void Pause() => SetPause(true);
     public void Resume() => SetPause(false);
 }

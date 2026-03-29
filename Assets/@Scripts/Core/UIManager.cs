@@ -10,6 +10,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] UI_Hud _hud;
     [SerializeField] UI_EventPanel _eventPanel;
     [SerializeField] UI_MeetingPopup _meetingPopup;
+    [SerializeField] UI_DayTransition _dayTransition;
     // [SerializeField] DayEndUI          _dayEnd;
 
     // ─────────────────────────────────────────────────
@@ -17,8 +18,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     // ─────────────────────────────────────────────────
     public void Init()
     {
-        // 캐릭터 선택 화면만 초기화
-        // CharacterSelectPopup은 Start()에서 자체 초기화
         Debug.Log("[UIManager] Init 완료");
     }
 
@@ -28,6 +27,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         _hud.Init();
         _meetingPopup.Init();
         _eventPanel.Init();
+        _dayTransition.Init();
         // _dayEnd.Init();
         Debug.Log("[UIManager] GameUI Init 완료");
     }
