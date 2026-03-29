@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7395821769514452858}
   - component: {fileID: 6225885283478694386}
+  - component: {fileID: -6667395075674687421}
   m_Layer: 5
   m_Name: UI_NotificationItem
   m_TagString: Untagged
@@ -157,6 +158,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-6667395075674687421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414114150079547587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa7336b9fe5bda45bc3c715a91b6842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_EventNotificationItem
+  _gradeIndicator: {fileID: 3089113631155323050}
+  _titleText: {fileID: 7170733543639258585}
+  _button: {fileID: 6225885283478694386}
+  _criticalColor: {r: 0.9, g: 0.2, b: 0.2, a: 1}
+  _majorColor: {r: 0.9, g: 0.7, b: 0, a: 1}
+  _minorColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
 --- !u!1 &7948425551885088132
 GameObject:
   m_ObjectHideFlags: 0

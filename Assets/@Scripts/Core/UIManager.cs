@@ -6,7 +6,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] UI_CharacterSelectPopup _characterSelectPopup;
     [SerializeField] UI_CharacterBar _characterBar;
     [SerializeField] UI_Hud _hud;
-    // [SerializeField] EventPanelUI      _eventPanel;
+    [SerializeField] UI_EventPanel _eventPanel;
     [SerializeField] UI_MeetingPopup _meetingPopup;
     // [SerializeField] DayEndUI          _dayEnd;
 
@@ -25,7 +25,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         _characterBar.Init();
         _hud.Init();
         _meetingPopup.Init();
-        // _eventPanel.Init();
+        _eventPanel.Init();
         // _dayEnd.Init();
         Debug.Log("[UIManager] GameUI Init ¿Ï·á");
     }

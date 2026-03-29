@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public class EventManager : SingletonBehaviour<EventManager>
+public class EventManagerEx : SingletonBehaviour<EventManagerEx>
 {
     // ─── 이벤트 데이터 목록 ───────────────────────────
     [SerializeField] ImmediateEventData[] _immediateEvents;

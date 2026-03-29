@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6661ef8fb11aa3d4ca5f27b5a1bd1eca, type: 3}
+  m_Name: RD_LoveAlone
+  m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
+  EventName: "\uD63C\uC790\uAC00 \uC88B\uC544"
+  Description: "\uD63C\uC790\uAC00 \uC88B\uC740 \uD300\uC6D0\uC774 \uC0B0\uCC45\uC744
+    \uB098\uAC14\uC2B5\uB2C8\uB2E4."
+  Grade: 0
+  Cooldown: 60
+  Conditions:
+  - Type: 0
+    RequiredTrait: 9
+    ConditionThreshold: 0
+    RequiredPhase: 0
+    RequiredProgressType: 0
+    ProgressThreshold: 0
+  Effects:
+  - Type: 2
+    Target: 2
+    CharacterIndex: 0
+    ConditionAmount: 0
+    ProgressType: 0
+    ProgressAmount: 0
+    ForcedRuntime: 0
+  TriggerChance: 0.4

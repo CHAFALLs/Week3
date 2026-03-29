@@ -86,6 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488501315987032930}
+  - component: {fileID: 1063247511687410512}
   m_Layer: 5
   m_Name: UI_EventPanel
   m_TagString: Untagged
@@ -113,3 +114,18 @@ RectTransform:
   m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1063247511687410512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7396140253607180559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7214425e9530d5a4a8cc01d4c260b6ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_EventPanel
+  _listContainer: {fileID: 2965344648939583394}
+  _itemPrefab: {fileID: -6667395075674687421, guid: 53f9fd116dae61d4fa31fe5bbbb9ac2d, type: 3}
+  _detailPopup: {fileID: 0}

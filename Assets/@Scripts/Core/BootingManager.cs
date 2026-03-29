@@ -8,7 +8,7 @@ public class BootingManager : SingletonBehaviour<BootingManager>
         TimeManager.Instance.Init();
         CharacterManager.Instance.Init();
         GameManager.Instance.Init();
-        EventManager.Instance.Init();
+        EventManagerEx.Instance.Init();
         UIManager.Instance.Init();
     }
 

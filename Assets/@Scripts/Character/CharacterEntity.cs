@@ -295,6 +295,7 @@ public enum RuntimeAction
     Rest,       // 휴식 (컨디션 회복)
     Exercise,   // 헬스 (HP 성장)
     Coffee,     // 커피 (컨디션 일시 ↑, 이후 ↓)
+    Trail,      // 산책
 }
 
 

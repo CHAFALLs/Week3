@@ -35,6 +35,7 @@ public class LocationManager : SingletonBehaviour<LocationManager>
         RuntimeAction.Rest => _dormitory,
         RuntimeAction.Exercise => _gym,
         RuntimeAction.Coffee => _cafeteria,
+        RuntimeAction.Trail => _trail,
         _ => _classroom
     };
 }

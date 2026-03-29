@@ -10,6 +10,7 @@ public class UI_RuntimeActionPanel : MonoBehaviour
     [SerializeField] Button _restButton;
     [SerializeField] Button _exerciseButton;
     [SerializeField] Button _coffeeButton;
+    [SerializeField] Button _trailButton;
 
     CharacterEntity _entity;
 
@@ -24,6 +25,7 @@ public class UI_RuntimeActionPanel : MonoBehaviour
         _restButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Rest));
         _exerciseButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Exercise));
         _coffeeButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Coffee));
+        _trailButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Trail));
     }
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式

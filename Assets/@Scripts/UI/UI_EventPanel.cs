@@ -14,8 +14,8 @@ public class UI_EventPanel : MonoBehaviour
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
     public void Init()
     {
-        EventManager.Instance.OnEventTriggered += OnEventTriggered;
-        EventManager.Instance.OnEventResolved += OnEventResolved;
+        EventManagerEx.Instance.OnEventTriggered += OnEventTriggered;
+        EventManagerEx.Instance.OnEventResolved += OnEventResolved;
     }
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式

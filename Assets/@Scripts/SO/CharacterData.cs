@@ -27,4 +27,8 @@ public enum TraitType
     Overenthusiast, // 의욕 과다
     Ideaman,        // 아이디어맨
     Troublemaker,   // 갈등 유발
+    CoffeeAddict,   // 커피 중독자
+    MoodMaker,      // 분위기 메이커
+    Loner,          // 고독을 즐김
+    GlassMental,    // 유리 멘탈
 }

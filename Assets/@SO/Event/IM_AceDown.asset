@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b01b74947e607a479b788e0eee052bd, type: 3}
+  m_Name: IM_AceDown
+  m_EditorClassIdentifier: Assembly-CSharp::ImmediateEventData
+  EventName: "\uC5D0\uC774\uC2A4 \uACFC\uB85C"
+  Description: "\uC5D0\uC774\uC2A4\uAC00 \uACFC\uB85C\uB85C \uC4F0\uB7EC\uC84C\uC2B5\uB2C8\uB2E4.
+    \uD300 \uC804\uCCB4\uAC00 \uD328\uB2C9\uC5D0 \uBE60\uC84C\uC2B5\uB2C8\uB2E4."
+  Grade: 2
+  Cooldown: 120
+  Conditions:
+  - Type: 1
+    RequiredTrait: 1
+    ConditionThreshold: 10
+    RequiredPhase: 0
+    RequiredProgressType: 0
+    ProgressThreshold: 0
+  Effects:
+  - Type: 0
+    Target: 1
+    CharacterIndex: 0
+    ConditionAmount: -20
+    ProgressType: 0
+    ProgressAmount: 0
+    ForcedRuntime: 0

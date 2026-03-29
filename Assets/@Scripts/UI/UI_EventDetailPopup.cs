@@ -10,6 +10,7 @@ public class UI_EventDetailPopup : MonoBehaviour
     [SerializeField] TextMeshProUGUI _descriptionText;
     [SerializeField] TextMeshProUGUI _gradeText;
     [SerializeField] Button _closeButton;
+    [SerializeField] Button _blocker;
 
     BaseEventData _current;
 
@@ -17,6 +18,7 @@ public class UI_EventDetailPopup : MonoBehaviour
     {
         _root.SetActive(false);
         _closeButton.onClick.AddListener(Hide);
+        _blocker.onClick.AddListener(Hide);
     }
 
     // ─────────────────────────────────────────────────
@@ -47,7 +49,7 @@ public class UI_EventDetailPopup : MonoBehaviour
     {
         // 알림 해제
         if (_current != null)
-            EventManager.Instance.ResolveNotification(_current);
+            EventManagerEx.Instance.ResolveNotification(_current);
 
         _root.transform.DOScale(0f, 0.15f)
             .SetEase(Ease.InBack)

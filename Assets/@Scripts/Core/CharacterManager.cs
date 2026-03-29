@@ -208,6 +208,9 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
                     c.ChangeCondition(Mathf.RoundToInt(6f * Time.deltaTime));
                     // TODO: 다음 틱 디버프
                     break;
+                case RuntimeAction.Trail:
+                    c.ChangeCondition(Mathf.RoundToInt(5f * Time.deltaTime));
+                    break;
             }
             return;
         }

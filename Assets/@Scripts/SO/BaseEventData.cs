@@ -21,23 +21,6 @@ public abstract class BaseEventData : ScriptableObject
 }
 
 // ─────────────────────────────────────────────────────
-//  즉시 발동 — 조건 만족 순간 발동
-// ─────────────────────────────────────────────────────
-[CreateAssetMenu(fileName = "ImmediateEvent", menuName = "Scriptable Objects/Event/ImmediateEvent")]
-public class ImmediateEventData : BaseEventData { }
-
-// ─────────────────────────────────────────────────────
-//  랜덤 발동 — 주기적으로 확률 체크 후 발동
-// ─────────────────────────────────────────────────────
-[CreateAssetMenu(fileName = "RandomEvent", menuName = "Scriptable Objects/Event/RandomEvent")]
-public class RandomEventData : BaseEventData
-{
-    [Tooltip("발동 확률 (0~1)")]
-    [Range(0f, 1f)]
-    public float TriggerChance = 0.3f;
-}
-
-// ─────────────────────────────────────────────────────
 //  발생 조건
 // ─────────────────────────────────────────────────────
 [System.Serializable]
