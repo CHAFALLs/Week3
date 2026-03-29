@@ -32,10 +32,6 @@ public class ImmediateEventData : BaseEventData { }
 [CreateAssetMenu(fileName = "RandomEvent", menuName = "Scriptable Objects/Event/RandomEvent")]
 public class RandomEventData : BaseEventData
 {
-    [Header("랜덤 발동 설정")]
-    [Tooltip("확률 체크 주기 (초)")]
-    public float TriggerInterval = 60f;
-
     [Tooltip("발동 확률 (0~1)")]
     [Range(0f, 1f)]
     public float TriggerChance = 0.3f;
@@ -48,14 +44,23 @@ public class RandomEventData : BaseEventData
 public class EventCondition
 {
     public ConditionType Type;
+
+    // HasTrait / TraitAndCondition 용
     public TraitType RequiredTrait;
     public float ConditionThreshold; // TraitAndCondition (0~100)
+
+    // PhaseAndProgress / PhaseOnly 용
+    public TimeManager.GamePhase RequiredPhase;
+    public ProgressType RequiredProgressType;
+    public float ProgressThreshold;
 }
 
 public enum ConditionType
 {
     HasTrait,           // 특성 보유 캐릭터 존재
     TraitAndCondition,  // 특성 보유 + 컨디션 이하
+    PhaseOnly,          // 특정 페이즈일 때만
+    PhaseAndProgress,   // 특정 페이즈 + 진행도 이하
 }
 
 // ─────────────────────────────────────────────────────

@@ -9,12 +9,18 @@ public class UI_MeetingPopup : MonoBehaviour
     [SerializeField] GameObject _root;
     [SerializeField] TextMeshProUGUI _titleText;
     [SerializeField] UI_MeetingCard[] _cards;
-    [SerializeField] Button _startButton;
+
+    [Header("버튼")]
+    [SerializeField] Button _startButton;    // Morning / Lunch
+    [SerializeField] Button _skipButton;     // Evening → 넘기기
+    [SerializeField] Button _overtimeButton; // Evening → 야근하기
 
     public void Init()
     {
         _root.SetActive(false);
         _startButton.onClick.AddListener(OnStartClicked);
+        _skipButton.onClick.AddListener(OnSkipClicked);
+        _overtimeButton.onClick.AddListener(OnOvertimeClicked);
 
     }
 
@@ -46,6 +52,12 @@ public class UI_MeetingPopup : MonoBehaviour
             }
         }
 
+        // Evening이면 넘기기/야근하기, 아니면 시작
+        bool isEvening = phase == TimeManager.DayPhase.Evening;
+        _startButton.gameObject.SetActive(!isEvening);
+        _skipButton.gameObject.SetActive(isEvening);
+        _overtimeButton.gameObject.SetActive(isEvening);
+
         // 팝업 등장
         _root.SetActive(true);
         _root.transform.localScale = Vector3.zero;
@@ -63,6 +75,7 @@ public class UI_MeetingPopup : MonoBehaviour
     // ─────────────────────────────────────────────────
     //  시작 버튼
     // ─────────────────────────────────────────────────
+    // Morning / Lunch → 시작
     void OnStartClicked()
     {
 
@@ -74,4 +87,44 @@ public class UI_MeetingPopup : MonoBehaviour
         Hide();
         TimeManager.Instance.EndMeeting();
     }
+
+    // Evening → 넘기기 (야근 없음, 컨디션 회복, 다음날)
+    void OnSkipClicked()
+    {
+
+        // 전원 야근 해제 + 컨디션 회복
+        foreach (var c in CharacterManager.Instance.Characters)
+        {
+            c.SetOvertime(false);
+            c.ChangeCondition(30);  // 숙면 회복 // TODO: 사실 이것도 CharacterManager쪽에서 함수 지원을 해주는게 맞음.
+        }
+
+        // 애니메이션 없이 즉시 닫기 (TODO: 수정 필요.)
+        _root.transform.DOKill();
+        _root.SetActive(false);
+
+        TimeManager.Instance.SkipToNextDay();
+    }
+
+    // Evening → 야근하기
+    void OnOvertimeClicked()
+    {
+        ApplyAllCards();
+
+        // 전원 야근 설정
+        foreach (var c in CharacterManager.Instance.Characters)
+            c.SetOvertime(true);
+
+        Hide();
+        TimeManager.Instance.EndMeeting();
+    }
+
+    // 모든 카드 반영
+    void ApplyAllCards()
+    {
+        foreach (var card in _cards)
+            if (card.gameObject.activeSelf)
+                card.ApplySelection();
+    }
+
 }

@@ -84,11 +84,18 @@ public class CharacterView : MonoBehaviour
     // ─────────────────────────────────────────────────
     void MoveToMeetingRoom()
     {
+        // 회의 소집 시 RuntimeAction 강제 해제 (패널티 없이)
         if (_entity.IsOnBreak)
             _entity.ClearRuntimeActionForMeeting();
 
         var meetingRoom = LocationManager.Instance.GetMeetingRoom();
-        if (meetingRoom == _currentLocation) return;
+
+        // 이미 회의실에 있으면 바로 도착 처리 (TODO: 꼼수)
+        if (meetingRoom == _currentLocation)
+        {
+            OnArrivedAtMeeting?.Invoke(this);
+            return;
+        }
 
         ReleaseCurrentSlot();
 

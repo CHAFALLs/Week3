@@ -75,6 +75,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         // 틱 처리 구독 (게임 시작 후부터)
         TimeManager.Instance.OnPhaseStart += OnPhaseTick;
         TimeManager.Instance.OnPhaseEnd += OnPhaseEnd;
+        TimeManager.Instance.OnDayEnd += OnDayEnd;
 
         Debug.Log("[CharacterManager] 팀 구성 확정");
     }
@@ -118,6 +119,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
     void OnCharacterArrivedAtMeeting(CharacterView view)
     {
         _arrivedAtMeetingCount++;
+        Debug.Log($"[도착] {view.name} {_arrivedAtMeetingCount}/{GetAvailable().Count}");
 
         // 회의 참여 가능한 캐릭터 전원 도착 시 팝업
         if (_arrivedAtMeetingCount >= GetAvailable().Count)
@@ -256,6 +258,15 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             c.AssignedAction == AssignedAction.SelfStudy_Art) return;
 
         GameManager.Instance.AddProgress(type, amount);
+    }
+
+    // ─────────────────────────────────────────────────
+    //  날 종료 — IsOvertime 초기화
+    // ─────────────────────────────────────────────────
+    void OnDayEnd(int day)
+    {
+        foreach (var c in _characters)
+            c.SetOvertime(false);
     }
 
     // ─────────────────────────────────────────────────

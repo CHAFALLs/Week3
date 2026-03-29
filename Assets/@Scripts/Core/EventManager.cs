@@ -23,7 +23,7 @@ public class EventManager : SingletonBehaviour<EventManager>
     public event Action<BaseEventData> OnEventTriggered;
     public event Action<BaseEventData> OnEventResolved;
 
-    const int MAX_MINOR_NOTIFICATIONS = 3;
+    const int MAX_NOTIFICATIONS = 3; // 최대 알림 표기 수.
 
     bool _initialized = false;
 
@@ -35,7 +35,7 @@ public class EventManager : SingletonBehaviour<EventManager>
         if (_initialized) return;
         _initialized = true;
 
-        // Immediate → 틱 시작 + 캐릭터 상태 변화 시 체크
+        // Immediate → 페이즈 시작 + 캐릭터 상태 변화 시 체크 (TODO 손보기)
         TimeManager.Instance.OnPhaseStart += CheckImmediateEvents;
         CharacterManager.Instance.OnCharacterDown += _ => CheckImmediateEvents(TimeManager.Instance.CurrentDayPhase);
         CharacterManager.Instance.OnCharacterRecovered += _ => CheckImmediateEvents(TimeManager.Instance.CurrentDayPhase);
@@ -71,15 +71,14 @@ public class EventManager : SingletonBehaviour<EventManager>
 
         foreach (var data in _randomEvents)
         {
-            if (data.Grade == EventGrade.Minor &&
-                _activeNotifications.Count >= MAX_MINOR_NOTIFICATIONS) continue;
-
+            // 쿨타임 안 됐으면 스킵
             if (!CheckCooldown(data)) continue;
 
+            // 확률 체크 실패하면 스킵
             if (UnityEngine.Random.value > data.TriggerChance) continue;
 
-            var triggerChar = FindTriggerCharacter(data);
-            if (data.Conditions != null && data.Conditions.Length > 0 && triggerChar == null) continue;
+            // 조건 불충족하면 스킵
+            if (!CheckEventConditions(data, out var triggerChar)) continue;
 
             candidates.Add((data, triggerChar));
         }
@@ -98,37 +97,57 @@ public class EventManager : SingletonBehaviour<EventManager>
     {
         foreach (var data in _immediateEvents)
         {
-            if (data.Grade == EventGrade.Minor &&
-                _activeNotifications.Count >= MAX_MINOR_NOTIFICATIONS) continue;
-
             if (!CheckCooldown(data)) continue;
 
-            var triggerChar = FindTriggerCharacter(data);
-            if (triggerChar == null) continue;
+            if (!CheckEventConditions(data, out var triggerChar)) continue;
 
             TriggerEvent(data, triggerChar);
         }
     }
 
     // ─────────────────────────────────────────────────
-    //  공통 유틸
+    //  조건 체크 — 발동 가능 여부 + 트리거 캐릭터 반환
+    //  조건 없으면 무조건 통과 (triggerChar = null)
+    //  캐릭터 조건 → 만족하는 첫 번째 캐릭터 반환
+    //  페이즈 조건 → 캐릭터 불필요, triggerChar = null
     // ─────────────────────────────────────────────────
-    bool CheckCooldown(BaseEventData data)
+    bool CheckEventConditions(BaseEventData data, out CharacterEntity triggerChar)
     {
-        if (!_lastTriggeredTime.ContainsKey(data)) return true;
-        return Time.time - _lastTriggeredTime[data] >= data.Cooldown;
-    }
+        triggerChar = null;
 
-    CharacterEntity FindTriggerCharacter(BaseEventData data)
-    {
         if (data.Conditions == null || data.Conditions.Length == 0)
-            return null;
+            return true;
 
-        foreach (var c in CharacterManager.Instance.Characters)
-            if (CheckAllConditions(c, data.Conditions))
-                return c;
+        // 조건 타입에 따라 분기
+        bool needsCharacter = false;
+        foreach (var condition in data.Conditions)
+        {
+            if (condition.Type == ConditionType.HasTrait ||
+                condition.Type == ConditionType.TraitAndCondition)
+            {
+                needsCharacter = true;
+                break;
+            }
+        }
 
-        return null;
+        if (needsCharacter)
+        {
+            // 캐릭터 기반 조건 — 만족하는 캐릭터 탐색
+            foreach (var c in CharacterManager.Instance.Characters)
+            {
+                if (CheckAllConditions(c, data.Conditions))
+                {
+                    triggerChar = c;
+                    return true;
+                }
+            }
+            return false;
+        }
+        else
+        {
+            // 게임 상태 기반 조건 — 캐릭터 불필요
+            return CheckAllConditions(null, data.Conditions);
+        }
     }
 
     bool CheckAllConditions(CharacterEntity c, EventCondition[] conditions)
@@ -143,13 +162,33 @@ public class EventManager : SingletonBehaviour<EventManager>
         return condition.Type switch
         {
             ConditionType.HasTrait =>
-                c.HasTrait(condition.RequiredTrait),
+                c != null && c.HasTrait(condition.RequiredTrait),
 
             ConditionType.TraitAndCondition =>
+                c != null &&
                 c.HasTrait(condition.RequiredTrait) &&
                 c.Condition <= condition.ConditionThreshold,
+
+            ConditionType.PhaseOnly =>
+                TimeManager.Instance.CurrentGamePhase == condition.RequiredPhase,
+
+            ConditionType.PhaseAndProgress =>
+                TimeManager.Instance.CurrentGamePhase == condition.RequiredPhase &&
+                GameManager.Instance.GetProgress(condition.RequiredProgressType) <= condition.ProgressThreshold,
+
             _ => false
         };
+    }
+
+
+
+    // ─────────────────────────────────────────────────
+    //  공통 유틸
+    // ─────────────────────────────────────────────────
+    bool CheckCooldown(BaseEventData data)
+    {
+        if (!_lastTriggeredTime.ContainsKey(data)) return true;
+        return Time.time - _lastTriggeredTime[data] >= data.Cooldown;
     }
 
     // ─────────────────────────────────────────────────
@@ -158,6 +197,15 @@ public class EventManager : SingletonBehaviour<EventManager>
     void TriggerEvent(BaseEventData data, CharacterEntity triggerChar)
     {
         Debug.Log($"[EventManager] 이벤트 발생: {data.EventName}");
+
+        // 최대치 초과 시 가장 오래된 알림 제거
+        if (_activeNotifications.Count >= MAX_NOTIFICATIONS)
+        {
+            var oldest = _activeNotifications[0];
+            _activeNotifications.RemoveAt(0);
+            OnEventResolved?.Invoke(oldest);
+        }
+
 
         _lastTriggeredTime[data] = Time.time;
         _activeNotifications.Add(data);

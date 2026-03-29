@@ -100,6 +100,19 @@ public class TimeManager : SingletonBehaviour<TimeManager>
         Debug.Log($"[진행 시작] {Day}일차 {CurrentDayPhase}");
     }
 
+    // 저녁 → 넘기기 (야근 없이 바로 다음날)
+    public void SkipToNextDay()
+    {
+        Debug.Log($"[넘기기] 다음날로");
+        
+        if (!IsInMeeting) return;
+        IsInMeeting = false;
+        SetPause(false);
+        OnPhaseEnd?.Invoke(CurrentDayPhase);
+        EndDay();
+        
+    }
+
     // ─────────────────────────────────────────────────
     //  시간 진행
     // ─────────────────────────────────────────────────
