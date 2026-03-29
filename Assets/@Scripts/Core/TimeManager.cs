@@ -23,7 +23,8 @@ public class TimeManager : SingletonBehaviour<TimeManager>
 
     // ─── 이벤트 ──────────────────────────────────────
     public event Action<DayPhase> OnMeetingStart;      // 회의 시작 (자동 일시정지)
-    public event Action<DayPhase> OnPhaseStart;        // 실시간 진행 시작
+    public event Action<DayPhase> OnPhaseStart;        // 페이즈(실시간) 시작할 때
+    public event Action<DayPhase> OnPhaseEnd;          // 페이즈 끝날 때
     public event Action<bool> OnPauseChanged;      // 일시정지 상태 변경
     public event Action<int> OnDayEnd;            // 날 종료
     public event Action<GamePhase> OnGamePhaseChanged;  // 기획→개발→통합 전환
@@ -104,6 +105,7 @@ public class TimeManager : SingletonBehaviour<TimeManager>
     // ─────────────────────────────────────────────────
     void AdvancePhase()
     {
+        OnPhaseEnd?.Invoke(CurrentDayPhase);  // 페이즈 끝날 때 발동
         int next = (int)CurrentDayPhase + 1;
 
         if (next > (int)DayPhase.Evening)

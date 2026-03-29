@@ -20,7 +20,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
     public event Action<CharacterEntity> OnCharacterRecovered;  // 다운 → Sick 회복
 
     private bool _initialized = false;
-    private int _arrivedAtMeetingCount = 0;
+    private int _arrivedAtMeetingCount = 0; // 회의실에 모두 다 도착했는지 체크용.
 
     // ─────────────────────────────────────────────────
     //  Init
@@ -74,6 +74,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
 
         // 틱 처리 구독 (게임 시작 후부터)
         TimeManager.Instance.OnPhaseStart += OnPhaseTick;
+        TimeManager.Instance.OnPhaseEnd += OnPhaseEnd;
 
         Debug.Log("[CharacterManager] 팀 구성 확정");
     }
@@ -172,95 +173,74 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
     }
 
     // ─────────────────────────────────────────────────
-    //  틱 처리 (OnPhaseStart 구독 → 구간 시작 시 호출)
+    //  Update — 진행도 실시간 누적
     // ─────────────────────────────────────────────────
-    public void OnPhaseTick(TimeManager.DayPhase phase)
+    void Update()
     {
+        if (_characters.Count == 0) return;
+        if (TimeManager.Instance == null) return;
+        if (TimeManager.Instance.IsPaused) return;
+        if (TimeManager.Instance.IsInMeeting) return;
+
         foreach (var c in _characters)
         {
-            ProcessAction(c);       // 행동 처리 (컨디션 소모/회복 + 진행도/성장 전부)
-            ProcessTraitEffects(c); // 특성 효과
+            ProcessWorkProgress(c);
+            ProcessCondition(c);
         }
     }
 
-    // ─────────────────────────────────────────────────
-    //  행동 처리 (컨디션 소모/회복 + 결과 한 번에)
-    // ─────────────────────────────────────────────────
-    void ProcessAction(CharacterEntity c)
+    // 컨디션 처리
+    void ProcessCondition(CharacterEntity c)
     {
-        // 인터럽트 중 → RuntimeAction 처리
         if (c.IsOnBreak)
         {
             switch (c.ActiveRuntime)
             {
                 case RuntimeAction.Rest:
-                    c.ChangeCondition(20);
+                    c.ChangeCondition(Mathf.RoundToInt(8f * Time.deltaTime));
                     break;
-
                 case RuntimeAction.Exercise:
-                    c.GrowStat(StatType.HP);
-                    c.ChangeCondition(-5);
+                    c.ChangeCondition(Mathf.RoundToInt(-2f * Time.deltaTime));
                     break;
-
                 case RuntimeAction.Coffee:
-                    c.ChangeCondition(15);
+                    c.ChangeCondition(Mathf.RoundToInt(6f * Time.deltaTime));
                     // TODO: 다음 틱 디버프
                     break;
             }
             return;
         }
 
-        // 메인 작업 처리
-        // 기본 소모량 계산
-        int drain = c.AssignedAction switch
+        if (c.State == CharacterState.Down) return;
+
+        float drain = c.AssignedAction switch
         {
             AssignedAction.Planning
             or AssignedAction.Client
-            or AssignedAction.Art => 10,
+            or AssignedAction.Art => 4f,
             AssignedAction.SelfStudy_Planning
             or AssignedAction.SelfStudy_Client
-            or AssignedAction.SelfStudy_Art => 8,
-            _ => 3
+            or AssignedAction.SelfStudy_Art => 3f,
+            _ => 1f
         };
 
-        // 야근 추가 소모
-        if (c.IsOvertime) drain += 10;
+        if (c.IsOvertime) drain += 4f;
+        if (c.State == CharacterState.Sick) drain += 2f;
+        if (c.HasTrait(TraitType.BurnoutProne) && c.IsOvertime) drain += 4f;
 
-        // Sick 추가 소모
-        //if (c.State == CharacterState.Sick) drain += 5;
-
-        // 번아웃 체질 — 야근 시 추가 소모
-        //if (c.HasTrait(TraitType.BurnoutProne) && c.IsOvertime) drain += 10;
-
-        c.ChangeCondition(-c.GetConditionDrain(drain));
-
-        // 행동 결과 처리 (TODO: 구분 지어줘야될 듯.)
-        switch (c.AssignedAction)
-        {
-            case AssignedAction.Planning:
-            case AssignedAction.Client:
-            case AssignedAction.Art:
-                ApplyWorkProgress(c);
-                break;
-
-            case AssignedAction.SelfStudy_Planning:
-                c.GrowStat(StatType.Planning);
-                break;
-
-            case AssignedAction.SelfStudy_Client:
-                c.GrowStat(StatType.Client);
-                break;
-
-            case AssignedAction.SelfStudy_Art:
-                c.GrowStat(StatType.Art);
-                break;
-        }
+        c.ChangeCondition(-c.GetConditionDrain(Mathf.RoundToInt(drain * Time.deltaTime)));
     }
 
-    void ApplyWorkProgress(CharacterEntity c)
+    // 작업 진행도 처리
+    void ProcessWorkProgress(CharacterEntity c)
     {
+        if (c.IsOnBreak) return;
+        if (c.State == CharacterState.Down) return;
+
         float efficiency = c.GetEfficiency();
-        float amount = efficiency * 0.1f;
+        if (efficiency <= 0f) return;
+
+        // 초당 조금씩 누적
+        float amount = efficiency * 0.005f * Time.deltaTime;
 
         ProgressType type = c.AssignedAction switch
         {
@@ -270,8 +250,56 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             _ => ProgressType.Planning
         };
 
+        // SelfStudy는 진행도 기여 없음
+        if (c.AssignedAction == AssignedAction.SelfStudy_Planning ||
+            c.AssignedAction == AssignedAction.SelfStudy_Client ||
+            c.AssignedAction == AssignedAction.SelfStudy_Art) return;
+
         GameManager.Instance.AddProgress(type, amount);
     }
+
+    // ─────────────────────────────────────────────────
+    //  틱 처리 (OnPhaseStart 구독 → 구간 시작 시 호출)
+    // ─────────────────────────────────────────────────
+    public void OnPhaseTick(TimeManager.DayPhase phase)
+    {
+        foreach (var c in _characters)
+        {
+            ProcessTraitEffects(c); // 틱 시작 시 효과 발동하는 특성이 있다면.
+        }
+    }
+
+    // ─────────────────────────────────────────────────
+    //  OnPhaseEnd — 스탯 성장 (페이즈 종료 시)
+    // ─────────────────────────────────────────────────
+    void OnPhaseEnd(TimeManager.DayPhase phase)
+    {
+        foreach (var c in _characters)
+            ProcessStatGrowth(c);
+    }
+
+    void ProcessStatGrowth(CharacterEntity c)
+    {
+        if (c.State == CharacterState.Down) return;
+
+        switch (c.AssignedAction)
+        {
+            case AssignedAction.SelfStudy_Planning:
+                c.GrowStat(StatType.Planning);
+                break;
+            case AssignedAction.SelfStudy_Client:
+                c.GrowStat(StatType.Client);
+                break;
+            case AssignedAction.SelfStudy_Art:
+                c.GrowStat(StatType.Art);
+                break;
+        }
+
+        // 헬스 → HP 성장
+        if (c.ActiveRuntime == RuntimeAction.Exercise)
+            c.GrowStat(StatType.HP);
+    }
+
 
     // ─────────────────────────────────────────────────
     //  특성 효과 처리
@@ -308,5 +336,15 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             GameManager.Instance.AddProgress(ProgressType.Client, -0.05f);
             Debug.Log($"[{c.Name}] 오버엔지니어링 발생!");
         }
+    }
+
+    protected override void Dispose()
+    {
+        if (TimeManager.Instance != null)
+        {
+            TimeManager.Instance.OnPhaseStart -= OnPhaseTick;
+            TimeManager.Instance.OnPhaseEnd -= OnPhaseEnd;
+        }
+        base.Dispose();
     }
 }

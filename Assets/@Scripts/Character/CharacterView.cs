@@ -84,6 +84,9 @@ public class CharacterView : MonoBehaviour
     // ─────────────────────────────────────────────────
     void MoveToMeetingRoom()
     {
+        if (_entity.IsOnBreak)
+            _entity.ClearRuntimeActionForMeeting();
+
         var meetingRoom = LocationManager.Instance.GetMeetingRoom();
         if (meetingRoom == _currentLocation) return;
 

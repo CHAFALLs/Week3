@@ -9,7 +9,7 @@ public class EventManager : SingletonBehaviour<EventManager>
     [SerializeField] RandomEventData[] _randomEvents;
 
     // ─── Random 사이클 설정 ───────────────────────────
-    [SerializeField] float _randomCycleInterval = 60f;  // 공용 체크 주기 (초)
+    [SerializeField] float _randomCycleInterval = 10f;  // 공용 체크 주기 (초)
     float _randomCycleTimer = 0f;
 
     // ─── 알림 목록 ────────────────────────────────────
@@ -148,11 +148,6 @@ public class EventManager : SingletonBehaviour<EventManager>
             ConditionType.TraitAndCondition =>
                 c.HasTrait(condition.RequiredTrait) &&
                 c.Condition <= condition.ConditionThreshold,
-
-            ConditionType.TraitAndState =>
-                c.HasTrait(condition.RequiredTrait) &&
-                c.State == condition.RequiredState,
-
             _ => false
         };
     }
@@ -208,7 +203,7 @@ public class EventManager : SingletonBehaviour<EventManager>
                 break;
 
             case EffectType.ForceRuntime:
-                c.SetRuntimeAction(effect.ForcedRuntime);
+                c.SetForcedRuntimeAction(effect.ForcedRuntime);
                 break;
         }
     }

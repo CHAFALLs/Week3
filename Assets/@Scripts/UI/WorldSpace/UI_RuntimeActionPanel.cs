@@ -69,16 +69,23 @@ public class UI_RuntimeActionPanel : MonoBehaviour
     void SetButtonState(Button button, RuntimeAction action)
     {
         bool isActive = _entity.ActiveRuntime == action;
+        bool isForced = isActive && _entity.IsForcedRuntime;
         var text = button.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        if (text == null) return;
+        var image = button.GetComponent<Image>();
 
-        text.text = action switch
+        if (text != null)
         {
-            RuntimeAction.Rest => isActive ? "ÈÞ½Ä Á¾·á" : "ÈÞ½Ä",
-            RuntimeAction.Exercise => isActive ? "Çï½º Á¾·á" : "Çï½º",
-            RuntimeAction.Coffee => isActive ? "Ä¿ÇÇ Á¾·á" : "Ä¿ÇÇ",
-            _ => ""
-        };
+            text.text = action switch
+            {
+                RuntimeAction.Rest => isActive ? "ÈÞ½Ä ²ô±â" : "ÈÞ½Ä",
+                RuntimeAction.Exercise => isActive ? "Çï½º ²ô±â" : "Çï½º",
+                RuntimeAction.Coffee => isActive ? "Ä¿ÇÇ ²ô±â" : "Ä¿ÇÇ",
+                _ => ""
+            };
+        }
+
+        if (image != null)
+            image.color = isForced ? Color.red : Color.white;
     }
 
     // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡

@@ -12,6 +12,7 @@ public class CharacterClickHandler : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (TimeManager.Instance.IsInMeeting) return;
         _runtimePanel.Show(_entity);
     }
 }

@@ -50,14 +50,12 @@ public class EventCondition
     public ConditionType Type;
     public TraitType RequiredTrait;
     public float ConditionThreshold; // TraitAndCondition (0~100)
-    public CharacterState RequiredState;      // TraitAndState
 }
 
 public enum ConditionType
 {
     HasTrait,           // 특성 보유 캐릭터 존재
     TraitAndCondition,  // 특성 보유 + 컨디션 이하
-    TraitAndState,      // 특성 보유 + 특정 상태
 }
 
 // ─────────────────────────────────────────────────────
@@ -78,7 +76,7 @@ public class EventEffect
     public float ProgressAmount;
 
     // ForceRuntime용
-    public RuntimeAction ForcedRuntime;
+    public RuntimeAction ForcedRuntime; // 난 무조건 커피를 마셔야 겠어 같은.
 }
 
 public enum EffectType

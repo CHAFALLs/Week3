@@ -34,14 +34,16 @@ public class CharacterEntity
 
     // ─── 가용 여부 ────────────────────────────────────
     public bool CanBeAssigned => State != CharacterState.Down;  // 회의 배분 가능
-    public bool CanUseRuntime => true;                          // RuntimeAction은 항상 가능
-    public bool CanRecoverDown => Condition > 10;               // Down 해제 가능 (11% 이상) (TODO:)
 
     // ─── 행동 ─────────────────────────────────────────
     public AssignedAction AssignedAction { get; private set; }
     public RuntimeAction? ActiveRuntime { get; private set; }
     public bool IsOvertime { get; private set; }
     public bool IsOnBreak => ActiveRuntime != null; // 일 안하고 딴 짓중.
+    public bool IsForcedRuntime { get; private set; }  // 강제 행동 여부
+
+    [Header("강제 행동 해제 패널티")]
+    const int ForceBreakPenalty = 15;
 
     // 현재 뭐하는지 (UI 말풍선용)
     public string GetCurrentBehaviorName()
@@ -168,21 +170,48 @@ public class CharacterEntity
         Debug.Log($"[{Name}] 배분 → {AssignedAction}");
     }
 
-    // 실시간 중 토글
+    // 실시간 중 토글 TODO: 아래 코드와 공통된 부분은 따로 빼주는게 정석이긴 함...
     public void SetRuntimeAction(RuntimeAction action)
     {
+        IsForcedRuntime = false;
         ActiveRuntime = action;
         OnActionChanged?.Invoke(this);
         Debug.Log($"[{Name}] 런타임 시작 → {action}");
+    }
+
+    public void SetForcedRuntimeAction(RuntimeAction action)
+    {
+        IsForcedRuntime = true;
+        ActiveRuntime = action;
+        OnActionChanged?.Invoke(this);
+        Debug.Log($"[{Name}] 강제 런타임 시작 → {action}");
+    }
+
+    public void ClearRuntimeActionForMeeting()
+    {
+        if (ActiveRuntime == null) return;
+        IsForcedRuntime = false;
+        ActiveRuntime = null;
+        OnActionChanged?.Invoke(this);
+        Debug.Log($"[{Name}] 회의 소집 → 런타임 해제 (패널티 없음)");
     }
 
     // 런타임 종료 → 메인 작업 복귀
     public void ClearRuntimeAction()
     {
         if (ActiveRuntime == null) return;
-        Debug.Log($"[{Name}] 런타임 종료 → {AssignedAction} 복귀");
+
+        // 강제 행동 해제 시 패널티
+        if (IsForcedRuntime)
+        {
+            Debug.Log($"[{Name}] 강제 행동 강제 해제 → 패널티 -{ForceBreakPenalty}");
+            ChangeCondition(-ForceBreakPenalty);
+        }
+
+        IsForcedRuntime = false;
         ActiveRuntime = null;
         OnActionChanged?.Invoke(this);
+        Debug.Log($"[{Name}] 런타임 종료 → {AssignedAction} 복귀");
     }
 
     // 야근 설정
