@@ -15,13 +15,21 @@ MonoBehaviour:
   EventName: "\uBD84\uC704\uAE30 \uC804\uD658"
   Description: "\uBD84\uC704\uAE30 \uBA54\uC774\uCEE4\uAC00 \uD300\uC758 \uC0AC\uAE30\uB97C
     \uC62C\uB838\uC2B5\uB2C8\uB2E4!"
-  Grade: 1
+  Grade: 2
   Cooldown: 120
   Conditions:
-  - Type: 1
+  - Type: 2
     RequiredTrait: 8
     ConditionThreshold: 40
     RequiredPhase: 0
     RequiredProgressType: 0
     ProgressThreshold: 0
-  Effects: []
+    Compare: 0
+  Effects:
+  - Type: 0
+    Target: 1
+    CharacterIndex: 0
+    ConditionAmount: 20
+    ProgressType: 0
+    ProgressAmount: 0
+    ForcedRuntime: 0

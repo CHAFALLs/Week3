@@ -36,14 +36,24 @@ public class EventCondition
     public TimeManager.GamePhase RequiredPhase;
     public ProgressType RequiredProgressType;
     public float ProgressThreshold;
+
+    // 공통 비교 방향
+    public CompareType Compare;
+}
+
+public enum CompareType
+{
+    LessOrEqual,    // 이하
+    GreaterOrEqual, // 이상
 }
 
 public enum ConditionType
 {
     HasTrait,           // 특성 보유 캐릭터 존재
-    TraitAndCondition,  // 특성 보유 + 컨디션 이하
+    TraitAndCondition,  // 특성 보유 + 컨디션 비교
+    AverageCondition,   // 전체 평균 컨디션 비교
     PhaseOnly,          // 특정 페이즈일 때만
-    PhaseAndProgress,   // 특정 페이즈 + 진행도 이하
+    PhaseAndProgress,   // 특정 페이즈 + 진행도 비교
 }
 
 // ─────────────────────────────────────────────────────

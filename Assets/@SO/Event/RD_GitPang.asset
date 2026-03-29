@@ -24,6 +24,7 @@ MonoBehaviour:
     RequiredPhase: 2
     RequiredProgressType: 0
     ProgressThreshold: 0
+    Compare: 0
   Effects:
   - Type: 1
     Target: 1
@@ -32,4 +33,4 @@ MonoBehaviour:
     ProgressType: 1
     ProgressAmount: -0.3
     ForcedRuntime: 0
-  TriggerChance: 0.5
+  TriggerChance: 0.55

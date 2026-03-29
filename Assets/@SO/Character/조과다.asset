@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0bfb93c04546ab47a01cd71486ece7b, type: 3}
+  m_Name: "\uC870\uACFC\uB2E4"
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  CharacterName: "\uC870\uACFC\uB2E4"
+  Portrait: {fileID: 0}
+  CharacterPrefab: {fileID: 6877639305424221059, guid: 5fa13f4824be6a049a0d07d38ddcd6e0, type: 3}
+  HP: 8
+  Planning: 6
+  Client: 4
+  Art: 7
+  Traits: 04000000

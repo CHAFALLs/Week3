@@ -167,20 +167,42 @@ public class EventManagerEx : SingletonBehaviour<EventManagerEx>
             ConditionType.TraitAndCondition =>
                 c != null &&
                 c.HasTrait(condition.RequiredTrait) &&
-                c.Condition <= condition.ConditionThreshold,
+                Compare(c.Condition, condition.ConditionThreshold, condition.Compare),
 
             ConditionType.PhaseOnly =>
                 TimeManager.Instance.CurrentGamePhase == condition.RequiredPhase,
 
             ConditionType.PhaseAndProgress =>
                 TimeManager.Instance.CurrentGamePhase == condition.RequiredPhase &&
-                GameManager.Instance.GetProgress(condition.RequiredProgressType) <= condition.ProgressThreshold,
+                Compare(
+                    GameManager.Instance.GetProgress(condition.RequiredProgressType) * 100f,
+                    condition.ProgressThreshold,
+                    condition.Compare),
+
+            ConditionType.AverageCondition =>
+                Compare(GetAverageCondition(), condition.ConditionThreshold, condition.Compare),
 
             _ => false
         };
     }
 
+    float GetAverageCondition()
+    {
+        var characters = CharacterManager.Instance.Characters;
+        if (characters.Count == 0) return 0f;
 
+        float total = 0f;
+        foreach (var c in characters)
+            total += c.Condition;
+        return total / characters.Count;
+    }
+
+    bool Compare(float value, float threshold, CompareType compareType) => compareType switch
+    {
+        CompareType.LessOrEqual => value <= threshold,
+        CompareType.GreaterOrEqual => value >= threshold,
+        _ => false
+    };
 
     // ─────────────────────────────────────────────────
     //  공통 유틸

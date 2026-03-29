@@ -86,21 +86,8 @@ public class UI_CharacterDetailPopup : MonoBehaviour
         _artText.text = _current.Art.ToString();
 
         // 특성
-        var traits = "";
-        foreach (var t in _current.Traits)
-            if (t != TraitType.None)
-                traits += $"{GetTraitName(t)}  ";
-        _traitText.text = traits.TrimEnd();
+        _traitText.text = TraitHelper.GetTraitsString(_current.Traits);
     }
 
-    string GetTraitName(TraitType trait) => trait switch
-    {
-        TraitType.Ace => "에이스",
-        TraitType.Fragile => "허약 체질",
-        TraitType.BurnoutProne => "번아웃 체질",
-        TraitType.Overenthusiast => "의욕 과다",
-        TraitType.Ideaman => "아이디어맨",
-        TraitType.Troublemaker => "갈등 유발",
-        _ => ""
-    };
+    
 }

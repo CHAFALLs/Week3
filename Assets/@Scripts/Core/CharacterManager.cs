@@ -230,7 +230,10 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
 
         if (c.IsOvertime) drain += 4f;
         if (c.State == CharacterState.Sick) drain += 2f;
-        if (c.HasTrait(TraitType.BurnoutProne) && c.IsOvertime) drain += 4f;
+        if (c.HasTrait(TraitType.BurnoutProne) && c.IsOvertime) drain += 4f; // 번아웃은 열심히 하면 힘들어요!
+        if (c.HasTrait(TraitType.MorningPerson) && c.IsOvertime) drain += 4f;  // 아침형 인간 야근 페널티
+        if (c.HasTrait(TraitType.NightOwl) && c.IsOvertime) drain -= 2f;  // 야행성 야근 소모 감소
+        if (c.HasTrait(TraitType.Workaholic)) drain += 2f;  // 일중독 추가 소모
 
         c.ChangeCondition(-c.GetConditionDrain(Mathf.RoundToInt(drain * Time.deltaTime)));
     }

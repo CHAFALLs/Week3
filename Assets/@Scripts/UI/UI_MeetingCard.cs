@@ -50,11 +50,7 @@ public class UI_MeetingCard : MonoBehaviour
         _statsText.text = $"{_entity.HP} / {_entity.Planning} / {_entity.Client} / {_entity.Art}";
 
         // 특성
-        var traits = "";
-        foreach (var t in _entity.Traits)
-            if (t != TraitType.None)
-                traits += GetTraitName(t) + ", ";
-        _traitsText.text = $"{traits.TrimEnd(',', ' ')}";
+        _traitsText.text = TraitHelper.GetTraitsString(_entity.Traits);
 
         RefreshDropdown();
     }
@@ -100,15 +96,5 @@ public class UI_MeetingCard : MonoBehaviour
         _entity.SetAssignedAction(_actionMap[index]);
     }
 
-    // TODO: 이거 한 곳에서 관리하는 식으로 변경할 것
-    string GetTraitName(TraitType trait) => trait switch
-    {
-        TraitType.Ace => "에이스",
-        TraitType.Fragile => "허약 체질",
-        TraitType.BurnoutProne => "번아웃 체질",
-        TraitType.Overenthusiast => "의욕 과다",
-        TraitType.Ideaman => "아이디어맨",
-        TraitType.Troublemaker => "갈등 유발",
-        _ => ""
-    };
+    
 }

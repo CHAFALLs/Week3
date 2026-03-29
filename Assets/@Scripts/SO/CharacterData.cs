@@ -31,4 +31,9 @@ public enum TraitType
     MoodMaker,      // 분위기 메이커
     Loner,          // 고독을 즐김
     GlassMental,    // 유리 멘탈
+    Optimist,       // 긍정형 인간
+    MorningPerson,  // 아침형 인간
+    NightOwl,       // 야행성
+    Workaholic,     // 일중독
+    Pessimist,      // 부정형 인간
 }
