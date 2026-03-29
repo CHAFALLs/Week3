@@ -20,30 +20,26 @@ public class UI_CharacterSelectPopup : MonoBehaviour
     void Start()
     {
 
-        // TODO: 메뉴 화면 나오면 수정 필요
-
         _rerollButton.onClick.AddListener(OnReroll);
         _startButton.onClick.AddListener(OnStart);
 
         // CharacterManager 이벤트 구독
         CharacterManager.Instance.OnRerolled += RefreshCards;
 
-        // 초기 표시
-        RefreshCards(null);
-        Show();
+        _root.SetActive(false);  // 기본 비활성화
     }
 
     // ─────────────────────────────────────────────────
     //  Show / Hide
     // ─────────────────────────────────────────────────
-    void Show()
+    public void Show()
     {
+        CharacterManager.Instance.Reroll();
+
         _root.SetActive(true);
         _root.transform.localScale = Vector3.zero;
         _root.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
 
-        // 게임 일시정지
-        TimeManager.Instance.Pause();
     }
 
     void Hide()
