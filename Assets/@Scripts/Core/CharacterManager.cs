@@ -9,6 +9,20 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
     [SerializeField] CharacterData[] _characterPool;  // 전체 풀
     [SerializeField] int _teamSize = 5;   // 선택 인원
 
+    // ─── 컨디션 소모량 (초당) ─────────────────────────
+    [Header("컨디션 소모량 (초당)")]
+    [SerializeField] float _drainWork = 1f;    // 메인 작업
+    [SerializeField] float _drainStudy = 0.7f;  // 자기주도 학습
+    [SerializeField] float _drainIdle = 0.3f;  // 유휴
+    [SerializeField] float _drainOvertime = 1f;    // 야근 추가
+
+    // ─── 컨디션 회복량 (초당) ─────────────────────────
+    [Header("컨디션 회복량 (초당)")]
+    [SerializeField] float _recoverRest = 8f;  // 휴식
+    [SerializeField] float _recoverCoffee = 6f;  // 커피
+    [SerializeField] float _recoverTrail = 5f;  // 산책
+    [SerializeField] float _drainExercise = 2f;  // 헬스 소모
+
     CharacterData[] _selectedData;        // 현재 선택된 캐릭터
 
     List<CharacterEntity> _characters = new List<CharacterEntity>();
@@ -199,17 +213,17 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             switch (c.ActiveRuntime)
             {
                 case RuntimeAction.Rest:
-                    c.ChangeCondition(Mathf.RoundToInt(8f * Time.deltaTime));
+                    c.ChangeCondition(Mathf.RoundToInt(_recoverRest * Time.deltaTime));
                     break;
                 case RuntimeAction.Exercise:
-                    c.ChangeCondition(Mathf.RoundToInt(-2f * Time.deltaTime));
+                    c.ChangeCondition(Mathf.RoundToInt(-_drainExercise * Time.deltaTime));
                     break;
                 case RuntimeAction.Coffee:
-                    c.ChangeCondition(Mathf.RoundToInt(6f * Time.deltaTime));
+                    c.ChangeCondition(Mathf.RoundToInt(_recoverCoffee * Time.deltaTime));
                     // TODO: 다음 틱 디버프
                     break;
                 case RuntimeAction.Trail:
-                    c.ChangeCondition(Mathf.RoundToInt(5f * Time.deltaTime));
+                    c.ChangeCondition(Mathf.RoundToInt(_recoverTrail * Time.deltaTime));
                     break;
             }
             return;
@@ -220,22 +234,24 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         float drain = c.AssignedAction switch
         {
             AssignedAction.Planning
-            or AssignedAction.Client
-            or AssignedAction.Art => 4f,
+           or AssignedAction.Client
+           or AssignedAction.Art => _drainWork,
             AssignedAction.SelfStudy_Planning
             or AssignedAction.SelfStudy_Client
-            or AssignedAction.SelfStudy_Art => 3f,
-            _ => 1f
+            or AssignedAction.SelfStudy_Art => _drainStudy,
+            _ => _drainIdle
         };
 
-        if (c.IsOvertime) drain += 4f;
-        if (c.State == CharacterState.Sick) drain += 2f;
-        if (c.HasTrait(TraitType.BurnoutProne) && c.IsOvertime) drain += 4f; // 번아웃은 열심히 하면 힘들어요!
-        if (c.HasTrait(TraitType.MorningPerson) && c.IsOvertime) drain += 4f;  // 아침형 인간 야근 페널티
-        if (c.HasTrait(TraitType.NightOwl) && c.IsOvertime) drain -= 2f;  // 야행성 야근 소모 감소
-        if (c.HasTrait(TraitType.Workaholic)) drain += 2f;  // 일중독 추가 소모
+        if (c.IsOvertime) drain += _drainOvertime;
+        if (c.State == CharacterState.Sick) drain += _drainOvertime;
+        if (c.HasTrait(TraitType.BurnoutProne) && c.IsOvertime) drain += _drainOvertime;
+        if (c.HasTrait(TraitType.MorningPerson) && c.IsOvertime) drain += _drainOvertime;
+        if (c.HasTrait(TraitType.NightOwl) && c.IsOvertime) drain -= _drainOvertime * 0.5f;
+        if (c.HasTrait(TraitType.Workaholic)) drain += _drainWork * 0.5f;
 
-        c.ChangeCondition(-c.GetConditionDrain(Mathf.RoundToInt(drain * Time.deltaTime)));
+        c.ChangeCondition(-c.GetConditionDrain(drain) * Time.deltaTime);
+
+
     }
 
     // 작업 진행도 처리
@@ -312,7 +328,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
                 break;
         }
 
-        // 헬스 → HP 성장
+        // 헬스 → HP 성장 (TODO)
         if (c.ActiveRuntime == RuntimeAction.Exercise)
             c.GrowStat(StatType.HP);
     }
@@ -326,7 +342,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         if (c.State == CharacterState.Down) return;
 
         // 에이스 — 컨디션 20% 이하 시 경고
-        if (c.HasTrait(TraitType.Ace) && c.Condition <= 20)
+        if (c.HasTrait(TraitType.Ace) && c.Condition <= 20f)
         {
             Debug.LogWarning($"[{c.Name}] 에이스 과로 위험!");
             // TODO: EventManager 트리거

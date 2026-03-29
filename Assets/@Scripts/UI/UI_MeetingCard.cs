@@ -46,7 +46,7 @@ public class UI_MeetingCard : MonoBehaviour
             CharacterState.Down => "다운",
             _ => ""
         };
-        _conditionText.text = $"{_entity.Condition} ({stateName})";
+        _conditionText.text = $"컨디션: {(int)_entity.Condition} ({stateName})";
         _statsText.text = $"{_entity.HP} / {_entity.Planning} / {_entity.Client} / {_entity.Art}";
 
         // 특성

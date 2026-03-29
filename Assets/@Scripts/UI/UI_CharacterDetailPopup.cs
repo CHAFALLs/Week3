@@ -75,7 +75,7 @@ public class UI_CharacterDetailPopup : MonoBehaviour
 
         // 기본 정보
         _nameText.text = _current.Name;
-        _conditionText.text = $"{_current.Condition}%";
+        _conditionText.text = $"{(int)_current.Condition}%";
         _conditionBar.value = _current.Condition / 100f;
         _actionText.text = _current.GetCurrentBehaviorName();
 

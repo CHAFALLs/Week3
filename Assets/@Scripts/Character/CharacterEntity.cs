@@ -18,7 +18,7 @@ public class CharacterEntity
     // ─── 컨디션 (0~100) ───────────────────────────────
     // 수치가 곧 상태를 결정
     // 100~41 : Normal / 40~11 : Sick / 10~0 : Down
-    public int Condition { get; private set; }
+    public float Condition { get; private set; }
 
     // ─── 상태 (컨디션에서 자동 계산) ─────────────────
     // TODO: 수치도 따로 빼야 될 수 있음.
@@ -26,8 +26,8 @@ public class CharacterEntity
     {
         get
         {
-            if (Condition > 40) return CharacterState.Normal;
-            if (Condition > 10) return CharacterState.Sick;
+            if (Condition > 40f) return CharacterState.Normal;
+            if (Condition > 10f) return CharacterState.Sick;
             return CharacterState.Down;
         }
     }
@@ -73,7 +73,7 @@ public class CharacterEntity
         Client = data.Client;
         Art = data.Art;
 
-        Condition = 100;
+        Condition = 100f;
         _prevState = CharacterState.Normal;
         AssignedAction = AssignedAction.Planning;
         ActiveRuntime = null;
@@ -86,9 +86,9 @@ public class CharacterEntity
     // ─────────────────────────────────────────────────
     //  컨디션 변경
     // ─────────────────────────────────────────────────
-    public void ChangeCondition(int amount)
+    public void ChangeCondition(float amount)
     {
-        Condition = Mathf.Clamp(Condition + amount, 0, 100);
+        Condition = Mathf.Clamp(Condition + amount, 0f, 100f);
         OnStatChanged?.Invoke(this);
 
         // 상태 변화 감지
@@ -118,10 +118,10 @@ public class CharacterEntity
     // HP 10 → 0.5배 / HP 5 → 1배 / HP 1 → ~1.9배
     // ─────────────────────────────────────────────────
    
-    public int GetConditionDrain(int baseDrain)
+    public float GetConditionDrain(float baseDrain)
     {
         float multiplier = 2f - (HP / 10f);
-        return Mathf.RoundToInt(baseDrain * multiplier);
+        return baseDrain * multiplier;
     }
 
     // ─────────────────────────────────────────────────
