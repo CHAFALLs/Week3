@@ -5,12 +5,17 @@ using UnityEngine.UI;
 public class UI_MainMenuPopup : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] GameObject _root;
+    [SerializeField] CanvasGroup _canvasGroup;
     [SerializeField] Button _startButton;
     [SerializeField] Button _quitButton;
 
     void Awake()
     {
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
+        _canvasGroup.blocksRaycasts = false;
+
+
         _startButton.onClick.AddListener(OnStartClicked);
         _quitButton.onClick.AddListener(OnQuitClicked);
     }
@@ -25,17 +30,22 @@ public class UI_MainMenuPopup : MonoBehaviour
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
     void Show()
     {
-        _root.SetActive(true);
-        _root.transform.localScale = Vector3.zero;
-        _root.transform.DOScale(1f, 0.3f)
-            .SetEase(Ease.OutBack)
-            .SetUpdate(true);
+        _canvasGroup.DOKill();
+        _canvasGroup.interactable = true;
+        _canvasGroup.blocksRaycasts = true;
+        _canvasGroup.DOFade(1f, 0.3f).SetUpdate(true);
     }
 
     void Hide()
     {
-        _root.transform.DOKill();
-        _root.SetActive(false);
+        _canvasGroup.DOKill();
+        _canvasGroup.DOFade(0f, 0.2f)
+        .SetUpdate(true)
+        .OnComplete(() =>
+        {
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+        });
     }
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式

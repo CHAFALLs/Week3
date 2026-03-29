@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UI_CharacterSelectPopup : MonoBehaviour
 {
     [Header("Panel")]
-    [SerializeField] GameObject _root;
+    [SerializeField] CanvasGroup _canvasGroup;
 
     [Header("카드")]
     [SerializeField] UI_CharacterSelectCard[] _cards;  // 5개
@@ -19,6 +19,10 @@ public class UI_CharacterSelectPopup : MonoBehaviour
     // ─────────────────────────────────────────────────
     void Start()
     {
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
+        _canvasGroup.blocksRaycasts = false;
+
 
         _rerollButton.onClick.AddListener(OnReroll);
         _startButton.onClick.AddListener(OnStart);
@@ -26,7 +30,6 @@ public class UI_CharacterSelectPopup : MonoBehaviour
         // CharacterManager 이벤트 구독
         CharacterManager.Instance.OnRerolled += RefreshCards;
 
-        _root.SetActive(false);  // 기본 비활성화
     }
 
     // ─────────────────────────────────────────────────
@@ -35,19 +38,24 @@ public class UI_CharacterSelectPopup : MonoBehaviour
     public void Show()
     {
         CharacterManager.Instance.Reroll();
-
-        _root.SetActive(true);
-        _root.transform.localScale = Vector3.zero;
-        _root.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
+        _canvasGroup.DOKill();
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = true;
+        _canvasGroup.blocksRaycasts = true;
+        _canvasGroup.DOFade(1f, 0.3f).SetUpdate(true);
 
     }
 
     void Hide()
     {
-        _root.transform.DOScale(0f, 0.2f)
-            .SetEase(Ease.InBack)
+        _canvasGroup.DOKill();
+        _canvasGroup.DOFade(0f, 0.2f)
             .SetUpdate(true)
-            .OnComplete(() => _root.SetActive(false));
+            .OnComplete(() =>
+            {
+                _canvasGroup.interactable = false;
+                _canvasGroup.blocksRaycasts = false;
+            });
     }
 
     // ─────────────────────────────────────────────────

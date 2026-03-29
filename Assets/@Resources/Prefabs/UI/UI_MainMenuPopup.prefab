@@ -542,6 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8703740997563456554}
   - component: {fileID: 6362070405494247662}
+  - component: {fileID: -5124556118926558578}
   m_Layer: 5
   m_Name: UI_MainMenuPopup
   m_TagString: Untagged
@@ -585,9 +586,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d6093411d70cd428de64c351716bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_MainMenuPopup
-  _root: {fileID: 3853005992203724121}
+  _canvasGroup: {fileID: -5124556118926558578}
   _startButton: {fileID: 5239062745233346625}
   _quitButton: {fileID: 3434133422535505752}
+--- !u!225 &-5124556118926558578
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853005992203724121}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4071809608865652502
 GameObject:
   m_ObjectHideFlags: 0

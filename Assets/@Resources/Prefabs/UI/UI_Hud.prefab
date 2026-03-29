@@ -920,6 +920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1764309924982960645}
   - component: {fileID: 8253653821276626627}
+  - component: {fileID: -5074178326976040926}
   m_Layer: 5
   m_Name: UI_Hud
   m_TagString: Untagged
@@ -971,6 +972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4598e7dae6fb30747a8d8426ce8de1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_Hud
+  _canvasGroup: {fileID: -5074178326976040926}
   _dayText: {fileID: 6835546019259320912}
   _phaseText: {fileID: 3901738279825725425}
   _planningBar: {fileID: 3751073439576566257}
@@ -980,6 +982,18 @@ MonoBehaviour:
   _artBar: {fileID: 73608354840330077}
   _artText: {fileID: 6524962414070157967}
   _nextMeetingText: {fileID: 9145788355140030077}
+--- !u!225 &-5074178326976040926
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202625818989223752}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3259009370401136658
 GameObject:
   m_ObjectHideFlags: 0

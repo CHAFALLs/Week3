@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8925161233134312191}
   - component: {fileID: 8616771777977544136}
+  - component: {fileID: -4193782043447843697}
   m_Layer: 5
   m_Name: UI_DayTransition
   m_TagString: Untagged
@@ -49,10 +50,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d8ae63e12884f43a2a3baaf04e2b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_DayTransition
-  _blackPanel: {fileID: 139881631933361233}
+  _canvasGroup: {fileID: -4193782043447843697}
   _fadeInDuration: 0.5
   _holdDuration: 0.3
   _fadeOutDuration: 0.8
+--- !u!225 &-4193782043447843697
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310834497863330479}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6333103782505502071
 GameObject:
   m_ObjectHideFlags: 0

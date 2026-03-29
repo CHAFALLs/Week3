@@ -165,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707479264058293160}
   - component: {fileID: 978712269225883016}
+  - component: {fileID: -262454802622310644}
   m_Layer: 5
   m_Name: UI_CharacterSelectPopup
   m_TagString: Untagged
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2a7925d4cdd7a40b67107e32dd6bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_CharacterSelectPopup
-  _root: {fileID: 2799234843911452482}
+  _canvasGroup: {fileID: -262454802622310644}
   _cards:
   - {fileID: 384610121790894826}
   - {fileID: 2243126213041937230}
@@ -213,6 +214,18 @@ MonoBehaviour:
   - {fileID: 4299425939354199165}
   _rerollButton: {fileID: 5674238718502614053}
   _startButton: {fileID: 749393956672776606}
+--- !u!225 &-262454802622310644
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2799234843911452482}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4457167482883494371
 GameObject:
   m_ObjectHideFlags: 0

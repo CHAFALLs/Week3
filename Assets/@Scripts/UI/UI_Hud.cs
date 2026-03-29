@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class UI_Hud : MonoBehaviour
 {
+    [SerializeField] CanvasGroup _canvasGroup;
+
     [Header("시간 정보")]
     [SerializeField] TextMeshProUGUI _dayText;
     [SerializeField] TextMeshProUGUI _phaseText;
@@ -22,12 +24,21 @@ public class UI_Hud : MonoBehaviour
 
     bool _initialized = false;
 
+    void Awake()
+    {
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
+        _canvasGroup.blocksRaycasts = false;
+    }
+
     // ─────────────────────────────────────────────────
     //  Init
     // ─────────────────────────────────────────────────
     public void Init()
     {
         _initialized = true;
+
+        _canvasGroup.alpha = 1f;
 
         // TimeManager 이벤트 구독
         TimeManager.Instance.OnDayEnd += _ => RefreshDay();

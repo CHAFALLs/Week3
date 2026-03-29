@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7052178474747750869}
   - component: {fileID: 2700561563740332189}
   - component: {fileID: 1437308200551972264}
+  - component: {fileID: -8390562752468200413}
   m_Layer: 5
   m_Name: UI_CharacterBar
   m_TagString: Untagged
@@ -80,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0399308804e6e89408f89e60e1699f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_CharacterBar
+  _canvasGroup: {fileID: -8390562752468200413}
   _slots:
   - {fileID: 3110185835407861246}
   - {fileID: 6974774361272401635}
@@ -87,6 +89,18 @@ MonoBehaviour:
   - {fileID: 6877369541363306544}
   - {fileID: 7229733434565672652}
   _detailPopup: {fileID: 0}
+--- !u!225 &-8390562752468200413
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3913505197149185400}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &3651624761183787107
 PrefabInstance:
   m_ObjectHideFlags: 0

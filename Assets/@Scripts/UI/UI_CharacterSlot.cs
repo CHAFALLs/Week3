@@ -20,12 +20,14 @@ public class UI_CharacterSlot : MonoBehaviour, IPointerClickHandler
 
     CharacterEntity _entity;
     UI_CharacterDetailPopup _detailPopup;
+    CharacterState _prevState = CharacterState.Normal; // 한번만 흔들기 위함.
 
     public void Init(CharacterEntity entity, UI_CharacterDetailPopup detailPopup)
     {
         _entity = entity;
         _detailPopup = detailPopup;
-
+        
+        RefreshState();
         Refresh();
 
         // 이벤트 구독
@@ -40,8 +42,6 @@ public class UI_CharacterSlot : MonoBehaviour, IPointerClickHandler
     void Refresh()
     {
         _nameText.text = _entity.Name;
-        //_actionIconText.text = GetActionIcon(_entity);
-        RefreshState();
     }
 
     void RefreshState()
@@ -54,36 +54,14 @@ public class UI_CharacterSlot : MonoBehaviour, IPointerClickHandler
             _ => _normalColor
         };
 
-        // Down 상태면 슬롯 흔들기
-        if (_entity.State == CharacterState.Down)
-            transform.DOShakePosition(0.3f, strength: 5f, vibrato: 10);
-    }
-
-    string GetActionIcon(CharacterEntity entity)
-    {
-        if (entity.State == CharacterState.Down) return "💀";
-        if (entity.State == CharacterState.Sick) return "🤒";
-        if (entity.IsOnBreak)
+        // Down 상태 진입 시 한 번만 흔들기
+        if (_entity.State == CharacterState.Down && _prevState != CharacterState.Down)
         {
-            return entity.ActiveRuntime switch
-            {
-                RuntimeAction.Rest => "😴",
-                RuntimeAction.Exercise => "💪",
-                RuntimeAction.Coffee => "☕",
-                _ => "❓"
-            };
+            transform.DOKill();
+            transform.DOShakePosition(0.3f, strength: 5f, vibrato: 10);
         }
 
-        return entity.AssignedAction switch
-        {
-            AssignedAction.Planning => "📋",
-            AssignedAction.Art => "🎨",
-            AssignedAction.Client => "💻",
-            AssignedAction.SelfStudy_Planning => "📖",
-            AssignedAction.SelfStudy_Client => "📖",
-            AssignedAction.SelfStudy_Art => "📖",
-            _ => "💤"
-        };
+        _prevState = _entity.State;
     }
 
     // ─────────────────────────────────────────────────
