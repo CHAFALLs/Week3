@@ -22,6 +22,10 @@ public class UI_Hud : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI _nextMeetingText;
 
+    // 일시정지
+    [SerializeField] Button _pauseButton;
+    [SerializeField] TextMeshProUGUI _pauseButtonText;
+
     bool _initialized = false;
 
     void Awake()
@@ -39,6 +43,8 @@ public class UI_Hud : MonoBehaviour
         _initialized = true;
 
         _canvasGroup.alpha = 1f;
+        _canvasGroup.interactable = true;
+        _canvasGroup.blocksRaycasts = true;
 
         // TimeManager 이벤트 구독
         TimeManager.Instance.OnDayEnd += _ => RefreshDay();
@@ -46,6 +52,9 @@ public class UI_Hud : MonoBehaviour
 
         // GameManager 이벤트 구독
         GameManager.Instance.OnProgressChanged += OnProgressChanged;
+
+        _pauseButton.onClick.AddListener(OnPauseButtonClicked);
+        TimeManager.Instance.OnPauseChanged += RefreshPauseButton;
 
         Refresh();
     }
@@ -117,5 +126,18 @@ public class UI_Hud : MonoBehaviour
     {
         bar.value = value;
         text.text = $"{Mathf.RoundToInt(value * 100f)}%";
+    }
+
+    void OnPauseButtonClicked()
+    {
+        if (TimeManager.Instance.IsPaused)
+            TimeManager.Instance.Resume();
+        else
+            TimeManager.Instance.Pause();
+    }
+
+    void RefreshPauseButton(bool isPaused)
+    {
+        _pauseButtonText.text = isPaused ? "▶" : "⏸";
     }
 }

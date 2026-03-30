@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_MeetingCard : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UI_MeetingCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI _statsText;
     [SerializeField] TextMeshProUGUI _traitsText;
     [SerializeField] TMP_Dropdown _actionDropdown;
+    [SerializeField] Image _portrait;
 
     CharacterEntity _entity;
 
@@ -29,6 +31,8 @@ public class UI_MeetingCard : MonoBehaviour
     public void Setup(CharacterEntity entity)
     {
         _entity = entity;
+        _portrait.sprite = _entity.Data.Portrait;
+        _portrait.preserveAspect = true;
         Refresh();
     }
 

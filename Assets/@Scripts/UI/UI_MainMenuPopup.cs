@@ -11,11 +11,6 @@ public class UI_MainMenuPopup : MonoBehaviour
 
     void Awake()
     {
-        _canvasGroup.alpha = 0f;
-        _canvasGroup.interactable = false;
-        _canvasGroup.blocksRaycasts = false;
-
-
         _startButton.onClick.AddListener(OnStartClicked);
         _quitButton.onClick.AddListener(OnQuitClicked);
     }

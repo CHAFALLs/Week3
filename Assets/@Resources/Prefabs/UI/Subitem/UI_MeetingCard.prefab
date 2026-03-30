@@ -2352,6 +2352,7 @@ MonoBehaviour:
   _statsText: {fileID: 6883363351227902965}
   _traitsText: {fileID: 8449156191727309200}
   _actionDropdown: {fileID: 7919235300177972969}
+  _portrait: {fileID: 8334913349769293171}
 --- !u!1 &8571580006296976130
 GameObject:
   m_ObjectHideFlags: 0

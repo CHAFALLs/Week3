@@ -90,6 +90,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         TimeManager.Instance.OnPhaseStart += OnPhaseTick;
         TimeManager.Instance.OnPhaseEnd += OnPhaseEnd;
         TimeManager.Instance.OnDayEnd += OnDayEnd;
+        TimeManager.Instance.OnMeetingStart += OnMeetingStarted;
 
         Debug.Log("[CharacterManager] 팀 구성 확정");
     }
@@ -128,6 +129,13 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             handler?.Init(_characters[i]);
             Debug.Log($"[CharacterManager] {dataArray[i].CharacterName} 스폰 완료");
         }
+    }
+
+    void OnMeetingStarted(TimeManager.DayPhase phase)
+    {
+        // 전원 Down이면 바로 팝업 표시
+        if (GetAvailable().Count == 0)
+            UIManager.Instance.ShowMeetingPopup();
     }
 
     void OnCharacterArrivedAtMeeting(CharacterView view)
@@ -202,6 +210,10 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         {
             ProcessWorkProgress(c);
             ProcessCondition(c);
+
+            // 헬스 누적 시간
+            if (c.ActiveRuntime == RuntimeAction.Exercise)
+                c.AddExerciseTime(Time.deltaTime);
         }
     }
 
@@ -213,17 +225,17 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             switch (c.ActiveRuntime)
             {
                 case RuntimeAction.Rest:
-                    c.ChangeCondition(Mathf.RoundToInt(_recoverRest * Time.deltaTime));
+                    c.ChangeCondition(_recoverRest * Time.deltaTime);
                     break;
                 case RuntimeAction.Exercise:
-                    c.ChangeCondition(Mathf.RoundToInt(-_drainExercise * Time.deltaTime));
+                    c.ChangeCondition(-_drainExercise * Time.deltaTime);
                     break;
                 case RuntimeAction.Coffee:
-                    c.ChangeCondition(Mathf.RoundToInt(_recoverCoffee * Time.deltaTime));
+                    c.ChangeCondition(_recoverCoffee * Time.deltaTime);
                     // TODO: 다음 틱 디버프
                     break;
                 case RuntimeAction.Trail:
-                    c.ChangeCondition(Mathf.RoundToInt(_recoverTrail * Time.deltaTime));
+                    c.ChangeCondition(_recoverTrail * Time.deltaTime);
                     break;
             }
             return;
@@ -328,9 +340,15 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
                 break;
         }
 
-        // 헬스 → HP 성장 (TODO)
-        if (c.ActiveRuntime == RuntimeAction.Exercise)
+        // 헬스 → 10초 이상 누적 시 HP 성장
+        if (c.ExerciseTimer >= 10f)
+        {
             c.GrowStat(StatType.HP);
+            Debug.Log($"[{c.Name}] 헬스 {c.ExerciseTimer:F1}초 → HP 성장!");
+        }
+
+        // 페이즈 종료 시 항상 초기화
+        c.ResetExerciseTime();
     }
 
 

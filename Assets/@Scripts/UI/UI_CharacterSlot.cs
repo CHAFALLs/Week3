@@ -9,7 +9,7 @@ public class UI_CharacterSlot : MonoBehaviour, IPointerClickHandler
     [Header("References")]
     [SerializeField] TextMeshProUGUI _nameText;
     [SerializeField] TextMeshProUGUI _actionIconText;  // 이모지 아이콘
-    [SerializeField] Image _background;
+    [SerializeField] Image _portrait;
     [SerializeField] Image _stateIndicator;  // 상태 색상 표시
 
     // 상태별 색상
@@ -26,7 +26,10 @@ public class UI_CharacterSlot : MonoBehaviour, IPointerClickHandler
     {
         _entity = entity;
         _detailPopup = detailPopup;
-        
+
+        _portrait.sprite = entity.Data.Portrait;
+        _portrait.preserveAspect = true;
+
         RefreshState();
         Refresh();
 

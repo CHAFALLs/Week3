@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -18,6 +19,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] float _boundMinY = -20f;
     [SerializeField] float _boundMaxY = 20f;
 
+    [Header("인트로 줌 설정")]
+    [SerializeField] float _introStartZoom = 3f;
+    [SerializeField] float _introDuration = 1.5f;
+
     Camera _cam;
     float _targetZoom;
 
@@ -27,12 +32,33 @@ public class CameraController : MonoBehaviour
         _targetZoom = _cam.orthographicSize;
     }
 
+    void Start()
+    {
+        TimeManager.Instance.OnGameStart += PlayIntro;
+    }
+
     void Update()
     {
         if (TimeManager.Instance == null) return;
 
         HandleMove();
         HandleZoom();
+    }
+
+    // ─────────────────────────────────────────────────
+    //  인트로 줌 연출
+    // ─────────────────────────────────────────────────
+    void PlayIntro()
+    {
+        _cam.orthographicSize = _introStartZoom;
+        _targetZoom = _maxZoom;
+
+        DOTween.To(
+            () => _cam.orthographicSize,
+            x => _cam.orthographicSize = x,
+            _maxZoom,
+            _introDuration)
+            .SetEase(Ease.OutQuad);
     }
 
     // ─────────────────────────────────────────────────
@@ -80,15 +106,4 @@ public class CameraController : MonoBehaviour
             Time.unscaledDeltaTime * 10f);
     }
 
-    // ─────────────────────────────────────────────────
-    //  외부에서 경계 설정 (맵 완성 후 호출)
-    // ─────────────────────────────────────────────────
-    public void SetBounds(float minX, float maxX, float minY, float maxY)
-    {
-        _boundMinX = minX;
-        _boundMaxX = maxX;
-        _boundMinY = minY;
-        _boundMaxY = maxY;
-        _useBounds = true;
-    }
 }

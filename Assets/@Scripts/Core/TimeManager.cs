@@ -22,6 +22,7 @@ public class TimeManager : SingletonBehaviour<TimeManager>
     public int RemainingDays => _totalDays - Day + 1;
 
     // ─── 이벤트 ──────────────────────────────────────
+    public event Action OnGameStart;
     public event Action<DayPhase> OnMeetingStart;      // 회의 시작 (자동 일시정지)
     public event Action<DayPhase> OnPhaseStart;        // 페이즈(실시간) 시작할 때
     public event Action<DayPhase> OnPhaseEnd;          // 페이즈 끝날 때
@@ -194,6 +195,7 @@ public class TimeManager : SingletonBehaviour<TimeManager>
 
     public void StartGame()
     {
+        OnGameStart?.Invoke();
         StartMeeting();  // 여기서 호출
     }
 

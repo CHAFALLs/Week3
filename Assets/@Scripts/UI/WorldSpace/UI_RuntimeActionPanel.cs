@@ -26,6 +26,8 @@ public class UI_RuntimeActionPanel : MonoBehaviour
         _exerciseButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Exercise));
         _coffeeButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Coffee));
         _trailButton.onClick.AddListener(() => OnActionSelected(RuntimeAction.Trail));
+
+        TimeManager.Instance.OnMeetingStart += _ => Hide();
     }
 
     // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
@@ -66,6 +68,7 @@ public class UI_RuntimeActionPanel : MonoBehaviour
         SetButtonState(_restButton, RuntimeAction.Rest);
         SetButtonState(_exerciseButton, RuntimeAction.Exercise);
         SetButtonState(_coffeeButton, RuntimeAction.Coffee);
+        SetButtonState(_trailButton, RuntimeAction.Trail);
     }
 
     void SetButtonState(Button button, RuntimeAction action)
@@ -82,6 +85,7 @@ public class UI_RuntimeActionPanel : MonoBehaviour
                 RuntimeAction.Rest => isActive ? "ÈÞ½Ä ²ô±â" : "ÈÞ½Ä",
                 RuntimeAction.Exercise => isActive ? "Çï½º ²ô±â" : "Çï½º",
                 RuntimeAction.Coffee => isActive ? "Ä¿ÇÇ ²ô±â" : "Ä¿ÇÇ",
+                RuntimeAction.Trail => isActive ? "»êÃ¥ ²ô±â" : "»êÃ¥",
                 _ => ""
             };
         }

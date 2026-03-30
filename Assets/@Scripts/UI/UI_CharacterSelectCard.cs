@@ -21,6 +21,7 @@ public class UI_CharacterSelectCard : MonoBehaviour
     {
         _nameText.text = data.CharacterName;
         _portrait.sprite = data.Portrait;
+        _portrait.preserveAspect = true;
         _hpValue.text = data.HP.ToString();
         _planningValue.text = data.Planning.ToString();
         _clientValue.text = data.Client.ToString();

@@ -84,6 +84,9 @@ public class CharacterView : MonoBehaviour
     // ─────────────────────────────────────────────────
     void MoveToMeetingRoom()
     {
+        // Down 상태면 회의 불참
+        if (_entity.State == CharacterState.Down) return;
+
         // 회의 소집 시 RuntimeAction 강제 해제 (패널티 없이)
         if (_entity.IsOnBreak)
             _entity.ClearRuntimeActionForMeeting();

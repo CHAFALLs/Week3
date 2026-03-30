@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "\uC870\uACFC\uB2E4"
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   CharacterName: "\uC870\uACFC\uB2E4"
-  Portrait: {fileID: 0}
-  CharacterPrefab: {fileID: 6877639305424221059, guid: 5fa13f4824be6a049a0d07d38ddcd6e0, type: 3}
+  Portrait: {fileID: 8485779121474854202, guid: 701ac6f6a7e98264e8bebe3cffc88580, type: 3}
+  CharacterPrefab: {fileID: 4792700224699093171, guid: 52287f24ef24412418b8659e6bcf5df3, type: 3}
   HP: 8
   Planning: 6
   Client: 4

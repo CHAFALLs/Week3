@@ -45,6 +45,13 @@ public class CharacterEntity
     [Header("강제 행동 해제 패널티")]
     const int ForceBreakPenalty = 15;
 
+    // 헬스 누적 시간 관리
+    public float ExerciseTimer { get; private set; }
+    public void AddExerciseTime(float delta) => ExerciseTimer += delta;
+    public void ResetExerciseTime() => ExerciseTimer = 0f;
+
+
+
     // 현재 뭐하는지 (UI 말풍선용)
     public string GetCurrentBehaviorName()
     {
@@ -149,11 +156,14 @@ public class CharacterEntity
         float stateMultiplier = State switch
         {
             CharacterState.Normal => 1.0f,
-            CharacterState.Sick => 0.5f,  // 아프면 효율 절반
+            //CharacterState.Sick => 0.5f,  // 아프면 효율 절반
             _ => 0f
         };
 
-        return statRatio * stateMultiplier;
+        // 일중독 효율 보너스
+        float traitMultiplier = HasTrait(TraitType.Workaholic) ? 1.2f : 1.0f;
+
+        return statRatio * stateMultiplier * traitMultiplier;
     }
 
     // ─────────────────────────────────────────────────

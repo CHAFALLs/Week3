@@ -32,6 +32,7 @@ public class UI_CharacterDetailPopup : MonoBehaviour
     {
         _root.SetActive(false);
         _closeButton.onClick.AddListener(Hide);
+        TimeManager.Instance.OnMeetingStart += _ => Hide();
     }
 
     // ─────────────────────────────────────────────────

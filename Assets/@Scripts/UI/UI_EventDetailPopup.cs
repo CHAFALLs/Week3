@@ -19,6 +19,7 @@ public class UI_EventDetailPopup : MonoBehaviour
         _root.SetActive(false);
         _closeButton.onClick.AddListener(Hide);
         _blocker.onClick.AddListener(Hide);
+        TimeManager.Instance.OnMeetingStart += _ => Hide();
     }
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式

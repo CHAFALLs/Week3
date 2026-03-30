@@ -122,9 +122,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -133,6 +149,10 @@ PrefabInstance:
       propertyPath: _nameText
       value: 
       objectReference: {fileID: 2670108911628457123}
+    - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: _portrait
+      value: 
+      objectReference: {fileID: 610986685358365963}
     - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: _background
       value: 
@@ -234,6 +254,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+--- !u!114 &610986685358365963 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4240003228078835048, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+  m_PrefabInstance: {fileID: 3651624761183787107}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &1975814227582202421 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3010284500653599318, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
@@ -293,9 +324,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -304,6 +351,10 @@ PrefabInstance:
       propertyPath: _nameText
       value: 
       objectReference: {fileID: 5861130666046579053}
+    - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: _portrait
+      value: 
+      objectReference: {fileID: 8944821237920934085}
     - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: _background
       value: 
@@ -443,6 +494,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &8944821237920934085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4240003228078835048, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+  m_PrefabInstance: {fileID: 5113248032229666221}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &5491580099546970276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -464,9 +526,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -475,6 +553,10 @@ PrefabInstance:
       propertyPath: _nameText
       value: 
       objectReference: {fileID: 6599198104468108388}
+    - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: _portrait
+      value: 
+      objectReference: {fileID: 8566276924043689420}
     - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: _background
       value: 
@@ -614,6 +696,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &8566276924043689420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4240003228078835048, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+  m_PrefabInstance: {fileID: 5491580099546970276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &8741439071989662590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -635,9 +728,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -646,6 +755,10 @@ PrefabInstance:
       propertyPath: _nameText
       value: 
       objectReference: {fileID: 7993001150451503038}
+    - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: _portrait
+      value: 
+      objectReference: {fileID: 4870732045221627414}
     - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: _background
       value: 
@@ -747,6 +860,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+--- !u!114 &4870732045221627414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4240003228078835048, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+  m_PrefabInstance: {fileID: 8741439071989662590}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &5803302946229217576 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3010284500653599318, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
@@ -806,9 +930,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
+    - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1703219064234134720, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -817,6 +957,10 @@ PrefabInstance:
       propertyPath: _nameText
       value: 
       objectReference: {fileID: 7670355982435405713}
+    - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+      propertyPath: _portrait
+      value: 
+      objectReference: {fileID: 5117809842658313785}
     - target: {fileID: 1838793381095849373, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
       propertyPath: _background
       value: 
@@ -918,6 +1062,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+--- !u!114 &5117809842658313785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4240003228078835048, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
+  m_PrefabInstance: {fileID: 9066195301119001425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &6059370487229835527 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3010284500653599318, guid: 31cb3dc7c2e8c6040b2d297400268573, type: 3}
