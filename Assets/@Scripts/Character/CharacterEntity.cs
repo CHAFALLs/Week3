@@ -50,6 +50,7 @@ public class CharacterEntity
     public void AddExerciseTime(float delta) => ExerciseTimer += delta;
     public void ResetExerciseTime() => ExerciseTimer = 0f;
 
+    bool _isAutoRest = false;  // 자동 Rest 여부
 
 
     // 현재 뭐하는지 (UI 말풍선용)
@@ -104,9 +105,19 @@ public class CharacterEntity
         // 체력 바닥 시 강제 Rest 전환
         if (Condition <= 0f && !IsOnBreak)
         {
+            _isAutoRest = true;
             ActiveRuntime = RuntimeAction.Rest;
             OnActionChanged?.Invoke(this);
             Debug.Log($"[{Name}] 체력 바닥 → 강제 휴식 전환");
+        }
+
+        // 컨디션 60 이상 && 강제 휴식 중 → 메인 작업 복귀 (자동 Rest인 경우만)
+        if (Condition >= 60f && IsOnBreak && ActiveRuntime == RuntimeAction.Rest && _isAutoRest)
+        {
+            _isAutoRest = false;
+            ActiveRuntime = null;
+            OnActionChanged?.Invoke(this);
+            Debug.Log($"[{Name}] 컨디션 회복 → 메인 작업 복귀");
         }
     }
 
@@ -161,9 +172,9 @@ public class CharacterEntity
         };
 
         // 일중독 효율 보너스
-        float traitMultiplier = HasTrait(TraitType.Workaholic) ? 1.2f : 1.0f;
-
-        return statRatio * stateMultiplier * traitMultiplier;
+        //float traitMultiplier = HasTrait(TraitType.Workaholic) ? 1.2f : 1.0f;
+        // * traitMultiplier
+        return statRatio * stateMultiplier;
     }
 
     // ─────────────────────────────────────────────────
@@ -218,6 +229,7 @@ public class CharacterEntity
             ChangeCondition(-ForceBreakPenalty);
         }
 
+        _isAutoRest = false;
         IsForcedRuntime = false;
         ActiveRuntime = null;
         OnActionChanged?.Invoke(this);
@@ -308,5 +320,3 @@ public enum RuntimeAction
     Trail,      // 산책
 }
 
-
-// TODO: 아니면 한번 넉다운 되면 못 되돌리는 식으로 할까? 그러면 아플때는 진행도가 떨어지는 식으로??? 고민이네 이건 기획적인 부분이라.

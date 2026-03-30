@@ -68,14 +68,14 @@ public class GameManager : SingletonBehaviour<GameManager>
         float weight = (phase, type) switch
         {
             (TimeManager.GamePhase.Planning, ProgressType.Planning) => 1.0f,
-            (TimeManager.GamePhase.Planning, ProgressType.Client) => 0.3f,
-            (TimeManager.GamePhase.Planning, ProgressType.Art) => 0.3f,
+            (TimeManager.GamePhase.Planning, ProgressType.Client) => 0.7f,
+            (TimeManager.GamePhase.Planning, ProgressType.Art) => 0.7f,
 
-            (TimeManager.GamePhase.Development, ProgressType.Planning) => 0.3f,
+            (TimeManager.GamePhase.Development, ProgressType.Planning) => 0.7f,
             (TimeManager.GamePhase.Development, ProgressType.Client) => 1.0f,
             (TimeManager.GamePhase.Development, ProgressType.Art) => 1.0f,
 
-            (TimeManager.GamePhase.Integration, ProgressType.Planning) => 0.3f,
+            (TimeManager.GamePhase.Integration, ProgressType.Planning) => 0.5f,
             (TimeManager.GamePhase.Integration, ProgressType.Client) => 1.2f,
             (TimeManager.GamePhase.Integration, ProgressType.Art) => 0.8f,
 

@@ -273,22 +273,26 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
         float efficiency = c.GetEfficiency();
         if (efficiency <= 0f) return;
 
-        // 초당 조금씩 누적
-        float amount = efficiency * 0.005f * Time.deltaTime;
+        float multiplier = 1f;
 
         ProgressType type = c.AssignedAction switch
         {
             AssignedAction.Planning => ProgressType.Planning,
             AssignedAction.Client => ProgressType.Client,
             AssignedAction.Art => ProgressType.Art,
+            AssignedAction.SelfStudy_Planning => ProgressType.Planning,
+            AssignedAction.SelfStudy_Client => ProgressType.Client,
+            AssignedAction.SelfStudy_Art => ProgressType.Art,
             _ => ProgressType.Planning
         };
 
-        // SelfStudy는 진행도 기여 없음
+        // SelfStudy는 진행도 절반 기여
         if (c.AssignedAction == AssignedAction.SelfStudy_Planning ||
             c.AssignedAction == AssignedAction.SelfStudy_Client ||
-            c.AssignedAction == AssignedAction.SelfStudy_Art) return;
+            c.AssignedAction == AssignedAction.SelfStudy_Art)
+            multiplier = 0.5f;
 
+        float amount = efficiency * 0.005f * Time.deltaTime * multiplier;
         GameManager.Instance.AddProgress(type, amount);
     }
 
