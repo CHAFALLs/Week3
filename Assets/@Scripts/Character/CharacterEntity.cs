@@ -102,22 +102,26 @@ public class CharacterEntity
         // 상태 변화 감지
         CheckStateChanged();
 
-        // 체력 바닥 시 강제 Rest 전환
-        if (Condition <= 0f && !IsOnBreak)
+        // 쉬움 모드에서만 자동 이동
+        if (GameManager.Instance.CurrentDifficulty == GameManager.Difficulty.Easy)
         {
-            _isAutoRest = true;
-            ActiveRuntime = RuntimeAction.Rest;
-            OnActionChanged?.Invoke(this);
-            Debug.Log($"[{Name}] 체력 바닥 → 강제 휴식 전환");
-        }
+            // 체력 바닥 시 강제 Rest 전환
+            if (Condition <= 0f && !IsOnBreak)
+            {
+                _isAutoRest = true;
+                ActiveRuntime = RuntimeAction.Rest;
+                OnActionChanged?.Invoke(this);
+                Debug.Log($"[{Name}] 체력 바닥 → 강제 휴식 전환");
+            }
 
-        // 컨디션 60 이상 && 강제 휴식 중 → 메인 작업 복귀 (자동 Rest인 경우만)
-        if (Condition >= 60f && IsOnBreak && ActiveRuntime == RuntimeAction.Rest && _isAutoRest)
-        {
-            _isAutoRest = false;
-            ActiveRuntime = null;
-            OnActionChanged?.Invoke(this);
-            Debug.Log($"[{Name}] 컨디션 회복 → 메인 작업 복귀");
+            // 컨디션 60 이상 && 자동 Rest인 경우만 복귀
+            if (Condition >= 60f && IsOnBreak && ActiveRuntime == RuntimeAction.Rest && _isAutoRest)
+            {
+                _isAutoRest = false;
+                ActiveRuntime = null;
+                OnActionChanged?.Invoke(this);
+                Debug.Log($"[{Name}] 컨디션 회복 → 메인 작업 복귀");
+            }
         }
     }
 

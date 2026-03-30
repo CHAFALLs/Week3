@@ -3,6 +3,16 @@ using System;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    // ─── 난이도 ───────────────────────────────────────
+    public enum Difficulty { Easy, Normal }
+    public Difficulty CurrentDifficulty { get; private set; } = Difficulty.Easy;
+
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        CurrentDifficulty = difficulty;
+        Debug.Log($"[GameManager] 난이도 설정 → {difficulty}");
+    }
+
 
     // ─── 완성도 (0~1) ─────────────────────────────────
     public float PlanningProgress { get; private set; }

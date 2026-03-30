@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: IM_Burnout
   m_EditorClassIdentifier: Assembly-CSharp::ImmediateEventData
   EventName: "\uBC88\uC544\uC6C3\uC774 \uC628 \uADF8"
-  Description: 
+  Description: "\uACB0\uAD6D \uBC88\uC544\uC6C3\uC774 \uD06C\uAC8C \uC640\uBC84\uB838\uC2B5\uB2C8\uB2E4.
+    [\uBC88\uC544\uC6C3 \uCCB4\uC9C8 \uCEE8\uB514\uC158] -15 | [\uD074\uB77C \uC9C4\uD589\uB3C4]
+    -15%"
   Grade: 2
   Cooldown: 60
   Conditions:
@@ -39,3 +41,4 @@ MonoBehaviour:
     ProgressType: 1
     ProgressAmount: -0.1
     ForcedRuntime: 0
+  TriggerChance: 1

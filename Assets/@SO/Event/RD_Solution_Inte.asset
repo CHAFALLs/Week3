@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RD_Solution_Inte
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
   EventName: "\uAC11\uC790\uAE30 \uB5A0\uC624\uB978 \uD574\uACB0\uCC45"
-  Description: "\uB9C9\uD614\uB358 \uBB38\uC81C\uAC00 \uAC11\uC790\uAE30 \uD574\uACB0\uB410\uC2B5\uB2C8\uB2E4."
+  Description: "\uB9C9\uD614\uB358 \uBB38\uC81C\uAC00 \uAC11\uC790\uAE30 \uD574\uACB0\uB410\uC2B5\uB2C8\uB2E4.
+    [\uD074\uB77C \uC9C4\uD589\uB3C4] +10%"
   Grade: 1
   Cooldown: 60
   Conditions:
@@ -30,6 +31,6 @@ MonoBehaviour:
     CharacterIndex: 0
     ConditionAmount: 0
     ProgressType: 1
-    ProgressAmount: 0.2
+    ProgressAmount: 0.1
     ForcedRuntime: 0
   TriggerChance: 0.6

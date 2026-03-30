@@ -6,12 +6,14 @@ public class UI_MainMenuPopup : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] CanvasGroup _canvasGroup;
-    [SerializeField] Button _startButton;
-    [SerializeField] Button _quitButton;
+    [SerializeField] Button _easyStartButton;    // 쉬움 모드 시작
+    [SerializeField] Button _normalStartButton;  // 보통 모드 시작
+    [SerializeField] Button _quitButton;         // 나가기
 
     void Awake()
     {
-        _startButton.onClick.AddListener(OnStartClicked);
+        _easyStartButton.onClick.AddListener(OnEasyStartClicked);
+        _normalStartButton.onClick.AddListener(OnNormalStartClicked);
         _quitButton.onClick.AddListener(OnQuitClicked);
     }
 
@@ -46,8 +48,16 @@ public class UI_MainMenuPopup : MonoBehaviour
     // ─────────────────────────────────────────────────
     //  버튼 이벤트
     // ─────────────────────────────────────────────────
-    void OnStartClicked()
+    void OnEasyStartClicked()
     {
+        GameManager.Instance.SetDifficulty(GameManager.Difficulty.Easy);
+        Hide();
+        UIManager.Instance.ShowGoal();
+    }
+
+    void OnNormalStartClicked()
+    {
+        GameManager.Instance.SetDifficulty(GameManager.Difficulty.Normal);
         Hide();
         UIManager.Instance.ShowGoal();
     }

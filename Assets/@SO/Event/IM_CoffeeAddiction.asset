@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImmediateEventData
   EventName: "\uCEE4\uD53C \uC911\uB3C5"
   Description: "\uCEE4\uD53C \uC911\uB3C5\uC790\uAC00 \uCEE4\uD53C\uB97C \uB9C8\uC2DC\uB7EC
-    \uAC11\uB2C8\uB2E4."
+    \uAC11\uB2C8\uB2E4. [\uCEE4\uD53C\uC911\uB3C5\uC790] \uAC15\uC81C \uCEE4\uD53C"
   Grade: 0
   Cooldown: 45
   Conditions:

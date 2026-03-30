@@ -63,13 +63,13 @@ public class UI_MeetingCard : MonoBehaviour
     {
         _actionDropdown.ClearOptions();
 
-        // Down 상태 → 옵션 하나만
-        if (_entity.State == CharacterState.Down)
-        {
-            _actionDropdown.AddOptions(new List<string> { "휴식 중 (다운)" });
-            _actionDropdown.interactable = false;
-            return;
-        }
+        //// Down 상태 → 옵션 하나만
+        //if (_entity.State == CharacterState.Down)
+        //{
+        //    _actionDropdown.AddOptions(new List<string> { "휴식 중 (다운)" });
+        //    _actionDropdown.interactable = false;
+        //    return;
+        //}
 
         // 정상/아픔 → 일반 옵션
         _actionDropdown.AddOptions(new List<string>
@@ -93,7 +93,7 @@ public class UI_MeetingCard : MonoBehaviour
     // ─────────────────────────────────────────────────
     public void ApplySelection()
     {
-        if (_entity.State == CharacterState.Down) return;
+        //if (_entity.State == CharacterState.Down) return;
 
         int index = _actionDropdown.value;
         if (index < 0 || index >= _actionMap.Length) return;

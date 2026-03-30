@@ -30,7 +30,10 @@ public class UI_EventDetailPopup : MonoBehaviour
         _current = data;
 
         _titleText.text = data.EventName;
-        _descriptionText.text = data.Description;
+        _descriptionText.text = data.Description
+        .Replace("|", "")
+        .Replace("[", "\n[")
+        .TrimStart('\n');
         _gradeText.text = data.Grade switch
         {
             EventGrade.Critical => "´ëÇü",

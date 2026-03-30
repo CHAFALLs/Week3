@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
   EventName: "\uD2B8\uB7EC\uBE14\uBA54\uC774\uCEE4\uC758 \uB09C\uB3D9"
   Description: "\uD2B8\uB7EC\uBE14\uBA54\uC774\uCEE4\uAC00 \uAC11\uC790\uAE30 \uB09C\uB3D9\uC744
-    \uBD80\uB9BD\uB2C8\uB2E4."
+    \uBD80\uB9BD\uB2C8\uB2E4. [\uC804\uCCB4 \uCEE8\uB514\uC158] -15"
   Grade: 1
   Cooldown: 130
   Conditions:

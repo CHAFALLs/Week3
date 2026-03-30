@@ -17,6 +17,7 @@ public static class TraitHelper
         TraitType.NightOwl => "야행성",
         TraitType.Workaholic => "일중독",
         TraitType.Pessimist => "부정형 인간",
+        TraitType.GymRat => "헬창",
         _ => ""
     };
 

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
   EventName: "Git \uD130\uD2B8\uB9BC"
   Description: "\uB204\uAD70\uAC00 main\uC5D0 \uC774\uC0C1\uD55C \uCEE4\uBC0B\uC744
-    \uC62C\uB838\uC2B5\uB2C8\uB2E4. \uD074\uB77C \uC9C4\uD589\uB3C4\uAC00 \uB0A0\uC544\uAC14\uC2B5\uB2C8\uB2E4."
+    \uC62C\uB838\uC2B5\uB2C8\uB2E4. \uD074\uB77C \uC9C4\uD589\uB3C4\uAC00 \uB0A0\uC544\uAC14\uC2B5\uB2C8\uB2E4.
+    [\uD074\uB77C \uC9C4\uD589\uB3C4] -20% "
   Grade: 2
   Cooldown: 300
   Conditions:

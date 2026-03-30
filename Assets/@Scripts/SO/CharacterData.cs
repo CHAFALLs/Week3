@@ -36,4 +36,5 @@ public enum TraitType
     NightOwl,       // 야행성
     Workaholic,     // 일중독
     Pessimist,      // 부정형 인간
+    GymRat,         // 헬창
 }

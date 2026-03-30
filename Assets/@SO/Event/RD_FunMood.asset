@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RD_FunMood
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
   EventName: "\uAC11.\uBD84.\uB180"
-  Description: "\uAC11\uAC00\uC9C0 \uB180\uC790 \uBD84\uC704\uAE30\uAC00 \uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+  Description: " \uAC11\uC790\uAE30 \uB180\uC790 \uBD84\uC704\uAE30\uAC00 \uB418\uC5C8\uC2B5\uB2C8\uB2E4.
+    [\uC804\uCCB4] \uAC15\uC81C \uD734\uC2DD"
   Grade: 2
   Cooldown: 200
   Conditions: []

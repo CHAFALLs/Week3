@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImmediateEventData
   EventName: "\uC5D0\uC774\uC2A4 \uACFC\uB85C"
   Description: "\uC5D0\uC774\uC2A4\uAC00 \uACFC\uB85C\uB85C \uC4F0\uB7EC\uC84C\uC2B5\uB2C8\uB2E4.
-    \uD300 \uC804\uCCB4\uAC00 \uD328\uB2C9\uC5D0 \uBE60\uC84C\uC2B5\uB2C8\uB2E4."
+    \uD300 \uC804\uCCB4\uAC00 \uD328\uB2C9\uC5D0 \uBE60\uC84C\uC2B5\uB2C8\uB2E4.
+    [\uC804\uCCB4 \uCEE8\uB514\uC158] -20"
   Grade: 2
   Cooldown: 120
   Conditions:
@@ -24,6 +25,7 @@ MonoBehaviour:
     RequiredPhase: 0
     RequiredProgressType: 0
     ProgressThreshold: 0
+    Compare: 0
   Effects:
   - Type: 0
     Target: 1
@@ -32,3 +34,4 @@ MonoBehaviour:
     ProgressType: 0
     ProgressAmount: 0
     ForcedRuntime: 0
+  TriggerChance: 1

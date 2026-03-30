@@ -291,7 +291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: "\uC2DC\uC791\uD558\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
   m_sharedMaterial: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reroll
+  m_text: "\uB9AC\uB864"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
   m_sharedMaterial: {fileID: -1899861286755723929, guid: a00dea3ef7e2a9c4381f966e70139e78, type: 2}
