@@ -11,7 +11,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] UI_EventPanel _eventPanel;
     [SerializeField] UI_MeetingPopup _meetingPopup;
     [SerializeField] UI_DayTransition _dayTransition;
-    // [SerializeField] DayEndUI          _dayEnd;
+    [SerializeField] UI_GameEndPopup _dayEnd;
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
     //  Init
@@ -28,7 +28,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         _meetingPopup.Init();
         _eventPanel.Init();
         _dayTransition.Init();
-        // _dayEnd.Init();
+        _dayEnd.Init();
         Debug.Log("[UIManager] GameUI Init 諫猿");
     }
 

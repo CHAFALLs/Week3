@@ -5,7 +5,6 @@ public class CameraController : MonoBehaviour
 {
     [Header("이동 설정")]
     [SerializeField] float _baseMoveSpeed = 10f;   // 기본 이동 속도
-    [SerializeField] float _edgeScrollSize = 20f;  // 화면 가장자리 스크롤 감지 크기 (px)
 
     [Header("줌 설정")]
     [SerializeField] float _zoomSpeed = 2f;

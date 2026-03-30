@@ -135,10 +135,10 @@ public class TimeManager : SingletonBehaviour<TimeManager>
 
     void EndDay()
     {
-        OnDayEnd?.Invoke(Day);
         Debug.Log($"[날 종료] {Day}일차");
 
         Day++;
+        OnDayEnd?.Invoke(Day);
 
         if (Day > _totalDays)
         {
@@ -154,6 +154,7 @@ public class TimeManager : SingletonBehaviour<TimeManager>
 
     public void StartNextDay()
     {
+        if (Day > _totalDays) return;
         StartMeeting();
     }
 
