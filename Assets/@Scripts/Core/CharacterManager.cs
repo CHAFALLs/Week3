@@ -241,8 +241,6 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
             return;
         }
 
-        if (c.State == CharacterState.Down) return;
-
         float drain = c.AssignedAction switch
         {
             AssignedAction.Planning
@@ -357,36 +355,7 @@ public class CharacterManager : SingletonBehaviour<CharacterManager>
     // ─────────────────────────────────────────────────
     void ProcessTraitEffects(CharacterEntity c)
     {
-        if (c.State == CharacterState.Down) return;
-
-        // 에이스 — 컨디션 20% 이하 시 경고
-        if (c.HasTrait(TraitType.Ace) && c.Condition <= 20f)
-        {
-            Debug.LogWarning($"[{c.Name}] 에이스 과로 위험!");
-            // TODO: EventManager 트리거
-        }
-
-        // 허약 체질 — 매 틱 추가 컨디션 소모
-        if (c.HasTrait(TraitType.Fragile))
-            c.ChangeCondition(-5);
-
-        // 아이디어맨 — 기획 페이즈에서 랜덤 보너스
-        if (c.HasTrait(TraitType.Ideaman) &&
-            TimeManager.Instance.CurrentGamePhase == TimeManager.GamePhase.Planning &&
-            UnityEngine.Random.value < 0.15f)
-        {
-            GameManager.Instance.AddProgress(ProgressType.Planning, 0.05f);
-            Debug.Log($"[{c.Name}] 아이디어 보너스!");
-        }
-
-        // 의욕 과다 — 클라 작업 시 오버엔지니어링 확률
-        if (c.HasTrait(TraitType.Overenthusiast) &&
-            c.AssignedAction == AssignedAction.Client &&
-            UnityEngine.Random.value < 0.1f)
-        {
-            GameManager.Instance.AddProgress(ProgressType.Client, -0.05f);
-            Debug.Log($"[{c.Name}] 오버엔지니어링 발생!");
-        }
+        // TODO: 밸런스가 좀 잡히면 건드리거나 하기!
     }
 
     protected override void Dispose()

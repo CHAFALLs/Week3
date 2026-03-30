@@ -10,27 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6661ef8fb11aa3d4ca5f27b5a1bd1eca, type: 3}
-  m_Name: RD_LoveAlone
+  m_Name: RD_CoachCheer
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
-  EventName: "\uD63C\uC790\uAC00 \uC88B\uC544"
-  Description: "\uD63C\uC790\uAC00 \uC88B\uC740 \uD300\uC6D0\uC774 \uC0B0\uCC45\uC744
-    \uB098\uAC14\uC2B5\uB2C8\uB2E4."
+  EventName: "\uCF54\uCE58\uB2D8\uC758 \uC751\uC6D0"
+  Description: "\uCF54\uCE58\uB2D8\uC774 \uD798\uC744 \uB0B4\uB77C\uACE0 \uC751\uC6D0\uD574\uC90D\uB2C8\uB2E4."
   Grade: 0
-  Cooldown: 45
-  Conditions:
-  - Type: 0
-    RequiredTrait: 9
-    ConditionThreshold: 0
-    RequiredPhase: 0
-    RequiredProgressType: 0
-    ProgressThreshold: 0
-    Compare: 0
+  Cooldown: 50
+  Conditions: []
   Effects:
-  - Type: 2
-    Target: 2
+  - Type: 0
+    Target: 1
     CharacterIndex: 0
-    ConditionAmount: 0
+    ConditionAmount: 10
     ProgressType: 0
     ProgressAmount: 0
-    ForcedRuntime: 3
-  TriggerChance: 0.7
+    ForcedRuntime: 0
+  TriggerChance: 0.6

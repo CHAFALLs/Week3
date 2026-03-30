@@ -101,12 +101,12 @@ public class CharacterEntity
         // 상태 변화 감지
         CheckStateChanged();
 
-        // Down 진입 시 강제 Rest 전환
-        if (State == CharacterState.Down && !IsOnBreak)
+        // 체력 바닥 시 강제 Rest 전환
+        if (Condition <= 0f && !IsOnBreak)
         {
             ActiveRuntime = RuntimeAction.Rest;
             OnActionChanged?.Invoke(this);
-            Debug.Log($"[{Name}] 다운 → 강제 휴식 전환");
+            Debug.Log($"[{Name}] 체력 바닥 → 강제 휴식 전환");
         }
     }
 

@@ -43,8 +43,8 @@ public class UI_Hud : MonoBehaviour
         _initialized = true;
 
         _canvasGroup.alpha = 1f;
-        _canvasGroup.interactable = true;
-        _canvasGroup.blocksRaycasts = true;
+        //_canvasGroup.interactable = true;
+        //_canvasGroup.blocksRaycasts = true;
 
         // TimeManager 이벤트 구독
         TimeManager.Instance.OnDayEnd += _ => RefreshDay();

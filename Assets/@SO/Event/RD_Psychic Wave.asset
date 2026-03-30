@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: "\uAC11\uC790\uAE30 \uBAA8\uB450\uAC00 \uBC88\uC544\uC6C3 \uB290\uB08C\uC744
     \uBC1B\uC558\uC2B5\uB2C8\uB2E4."
   Grade: 1
-  Cooldown: 60
+  Cooldown: 55
   Conditions: []
   Effects:
   - Type: 0

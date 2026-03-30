@@ -10,34 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b01b74947e607a479b788e0eee052bd, type: 3}
-  m_Name: IM_RationalMental
+  m_Name: IM_IdeaKing
   m_EditorClassIdentifier: Assembly-CSharp::ImmediateEventData
-  EventName: "\uBA58\uD0C8 \uBD95\uAD34"
-  Description: "\uAE30\uD68D \uC9C4\uD589\uB3C4\uAC00 \uB0AE\uC544 \uC720\uB9AC\uBA58\uD0C8
-    \uD300\uC6D0\uC758 \uCEE8\uB514\uC158\uC774 \uAE09\uACA9\uD788 \uB5A8\uC5B4\uC84C\uC2B5\uB2C8\uB2E4."
+  EventName: "\uC544\uC774\uB514\uC5B4 \uD3ED\uBC1C"
+  Description: "\uC544\uC774\uB514\uC5B4\uB9E8\uC774 \uAC11\uC790\uAE30 \uC544\uC774\uB514\uC5B4\uAC00
+    \uB5A0\uC62C\uB790\uC2B5\uB2C8\uB2E4! \uD558\uC9C0\uB9CC \uBA38\uB9AC\uB97C \uB108\uBB34
+    \uB9CE\uC774 \uC368\uC11C \uCEE8\uB514\uC158\uC774 \uB5A8\uC5B4\uC9D1\uB2C8\uB2E4."
   Grade: 1
-  Cooldown: 180
+  Cooldown: 110
   Conditions:
-  - Type: 0
-    RequiredTrait: 10
-    ConditionThreshold: 0
+  - Type: 1
+    RequiredTrait: 5
+    ConditionThreshold: 60
     RequiredPhase: 0
     RequiredProgressType: 0
     ProgressThreshold: 0
     Compare: 0
-  - Type: 4
-    RequiredTrait: 10
-    ConditionThreshold: 0
-    RequiredPhase: 1
-    RequiredProgressType: 0
-    ProgressThreshold: 0.6
-    Compare: 0
   Effects:
+  - Type: 1
+    Target: 1
+    CharacterIndex: 0
+    ConditionAmount: 0
+    ProgressType: 0
+    ProgressAmount: 0.3
+    ForcedRuntime: 0
   - Type: 0
     Target: 2
     CharacterIndex: 0
-    ConditionAmount: -25
+    ConditionAmount: -15
     ProgressType: 0
-    ProgressAmount: 0
+    ProgressAmount: 0.3
     ForcedRuntime: 0
-  TriggerChance: 0.85

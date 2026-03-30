@@ -96,7 +96,7 @@ public class UI_MeetingPopup : MonoBehaviour
         foreach (var c in CharacterManager.Instance.Characters)
         {
             c.SetOvertime(false);
-            c.ChangeCondition(30);  // 숙면 회복 // TODO: 사실 이것도 CharacterManager쪽에서 함수 지원을 해주는게 맞음.
+            c.ChangeCondition(20f);  // 숙면 회복 // TODO: 사실 이것도 CharacterManager쪽에서 함수 지원을 해주는게 맞음.
         }
 
         // 애니메이션 없이 즉시 닫기 (TODO: 수정 필요.)

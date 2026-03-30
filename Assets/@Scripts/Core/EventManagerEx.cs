@@ -98,7 +98,7 @@ public class EventManagerEx : SingletonBehaviour<EventManagerEx>
         foreach (var data in _immediateEvents)
         {
             if (!CheckCooldown(data)) continue;
-
+            if (UnityEngine.Random.value > data.TriggerChance) continue;
             if (!CheckEventConditions(data, out var triggerChar)) continue;
 
             TriggerEvent(data, triggerChar);
@@ -240,6 +240,14 @@ public class EventManagerEx : SingletonBehaviour<EventManagerEx>
     {
         foreach (var effect in data.Effects)
         {
+
+            // Progress는 타겟 무관하게 한 번만 적용
+            if (effect.Type == EffectType.Progress)
+            {
+                GameManager.Instance.AddProgress(effect.ProgressType, effect.ProgressAmount);
+                continue;
+            }
+
             switch (effect.Target)
             {
                 case EffectTarget.SingleCharacter:
@@ -268,9 +276,9 @@ public class EventManagerEx : SingletonBehaviour<EventManagerEx>
                 c.ChangeCondition(effect.ConditionAmount);
                 break;
 
-            case EffectType.Progress:
-                GameManager.Instance.AddProgress(effect.ProgressType, effect.ProgressAmount);
-                break;
+            //case EffectType.Progress:
+            //    GameManager.Instance.AddProgress(effect.ProgressType, effect.ProgressAmount);
+            //    break; // 한번만 작동하게 하기 위해 약간의 수정을 함.
 
             case EffectType.ForceRuntime:
                 c.SetForcedRuntimeAction(effect.ForcedRuntime);

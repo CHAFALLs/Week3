@@ -17,6 +17,6 @@ MonoBehaviour:
   CharacterPrefab: {fileID: 2457662967365720287, guid: 6aa672bbfcaa96f4dae8774d0115d71d, type: 3}
   HP: 3
   Planning: 4
-  Client: 6
-  Art: 9
+  Client: 9
+  Art: 7
   Traits: 03000000

@@ -10,27 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6661ef8fb11aa3d4ca5f27b5a1bd1eca, type: 3}
-  m_Name: RD_LoveAlone
+  m_Name: RD_Nav_Client
   m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
-  EventName: "\uD63C\uC790\uAC00 \uC88B\uC544"
-  Description: "\uD63C\uC790\uAC00 \uC88B\uC740 \uD300\uC6D0\uC774 \uC0B0\uCC45\uC744
-    \uB098\uAC14\uC2B5\uB2C8\uB2E4."
+  EventName: "\uC774\uAC74 \uC544\uB2CC\uB370?"
+  Description: "\uBD80\uC815\uD615 \uC778\uAC04\uC774 \uBC18\uB300\uC758\uACAC\uC744
+    \uC81C\uC2DC\uD569\uB2C8\uB2E4."
   Grade: 0
-  Cooldown: 45
+  Cooldown: 70
   Conditions:
   - Type: 0
-    RequiredTrait: 9
+    RequiredTrait: 15
+    ConditionThreshold: 0
+    RequiredPhase: 0
+    RequiredProgressType: 0
+    ProgressThreshold: 0
+    Compare: 0
+  - Type: 3
+    RequiredTrait: 15
     ConditionThreshold: 0
     RequiredPhase: 0
     RequiredProgressType: 0
     ProgressThreshold: 0
     Compare: 0
   Effects:
-  - Type: 2
-    Target: 2
+  - Type: 1
+    Target: 0
     CharacterIndex: 0
     ConditionAmount: 0
     ProgressType: 0
-    ProgressAmount: 0
-    ForcedRuntime: 3
-  TriggerChance: 0.7
+    ProgressAmount: -0.1
+    ForcedRuntime: 0
+  TriggerChance: 0.55

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6661ef8fb11aa3d4ca5f27b5a1bd1eca, type: 3}
+  m_Name: RD_EMP
+  m_EditorClassIdentifier: Assembly-CSharp::RandomEventData
+  EventName: "\uC778\uD130\uB137 \uB04A\uAE40"
+  Description: "\uC778\uD130\uB137\uC774 \uB04A\uC5B4\uC838 \uC57D\uAC04\uC758 \uC9C4\uD589\uB3C4\uAC00
+    \uB0A0\uC544\uAC11\uB2C8\uB2E4."
+  Grade: 1
+  Cooldown: 180
+  Conditions: []
+  Effects:
+  - Type: 1
+    Target: 1
+    CharacterIndex: 0
+    ConditionAmount: 0
+    ProgressType: 0
+    ProgressAmount: -0.05
+    ForcedRuntime: 0
+  - Type: 1
+    Target: 1
+    CharacterIndex: 0
+    ConditionAmount: 0
+    ProgressType: 1
+    ProgressAmount: -0.05
+    ForcedRuntime: 0
+  - Type: 1
+    Target: 1
+    CharacterIndex: 0
+    ConditionAmount: 0
+    ProgressType: 2
+    ProgressAmount: -0.05
+    ForcedRuntime: 0
+  TriggerChance: 0.35

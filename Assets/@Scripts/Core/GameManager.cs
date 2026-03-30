@@ -75,9 +75,9 @@ public class GameManager : SingletonBehaviour<GameManager>
             (TimeManager.GamePhase.Development, ProgressType.Client) => 1.0f,
             (TimeManager.GamePhase.Development, ProgressType.Art) => 1.0f,
 
+            (TimeManager.GamePhase.Integration, ProgressType.Planning) => 0.3f,
             (TimeManager.GamePhase.Integration, ProgressType.Client) => 1.2f,
-            (TimeManager.GamePhase.Integration, ProgressType.Planning) => 0.1f,
-            (TimeManager.GamePhase.Integration, ProgressType.Art) => 0.1f,
+            (TimeManager.GamePhase.Integration, ProgressType.Art) => 0.8f,
 
             _ => 1.0f
         };

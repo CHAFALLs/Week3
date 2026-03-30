@@ -33,3 +33,4 @@ MonoBehaviour:
     ProgressType: 0
     ProgressAmount: 0
     ForcedRuntime: 2
+  TriggerChance: 0.8
