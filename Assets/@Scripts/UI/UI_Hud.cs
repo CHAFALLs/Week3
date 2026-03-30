@@ -138,6 +138,6 @@ public class UI_Hud : MonoBehaviour
 
     void RefreshPauseButton(bool isPaused)
     {
-        _pauseButtonText.text = isPaused ? "▶" : "⏸";
+        _pauseButtonText.text = isPaused ? "II" : ">";
     }
 }

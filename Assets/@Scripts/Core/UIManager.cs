@@ -12,6 +12,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] UI_MeetingPopup _meetingPopup;
     [SerializeField] UI_DayTransition _dayTransition;
     [SerializeField] UI_GameEndPopup _dayEnd;
+    [SerializeField] UI_TipPopup _tipPopup;
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
     //  Init
@@ -44,6 +45,11 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void ShowCharacterSelect()
     {
         _characterSelectPopup.Show();
+    }
+
+    public void ShowTip(string title, string content)
+    {
+        _tipPopup.Show(title, content);
     }
 
     public void ShowMeetingPopup()

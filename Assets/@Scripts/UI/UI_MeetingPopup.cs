@@ -11,6 +11,7 @@ public class UI_MeetingPopup : MonoBehaviour
     [SerializeField] UI_MeetingCard[] _cards;
 
     [Header("버튼")]
+    [SerializeField] Button _tipButton;
     [SerializeField] Button _startButton;    // Morning / Lunch
     [SerializeField] Button _skipButton;     // Evening → 넘기기
     [SerializeField] Button _overtimeButton; // Evening → 야근하기
@@ -18,6 +19,24 @@ public class UI_MeetingPopup : MonoBehaviour
     public void Init()
     {
         _root.SetActive(false);
+
+        _tipButton.onClick.AddListener(() =>
+        UIManager.Instance.ShowTip(
+            "회의 가이드",
+            "[행동 선택 팁]\n" +
+            "기획/클라/아트: 해당 스탯이 높을수록 진행도 기여가 높아요.\n" +
+            "자기주도 학습: 진행도 기여는 절반이지만 컨디션 소모량이 적고 스탯이 성장해요.\n" +
+            "장기적으로 효율이 올라가니 초반에 투자해보세요.\n\n" +
+            "[페이즈별 진행도 가중치]\n" +
+            "기획 페이즈:  기획 x1.0 | 클라 x0.7 | 아트 x0.7\n" +
+            "개발 페이즈:  기획 x0.7 | 클라 x1.0 | 아트 x1.0\n" +
+            "통합 페이즈:  기획 x0.5 | 클라 x1.2 | 아트 x0.8\n\n" +
+            "[컨디션 관리]\n" +
+            "컨디션이 낮으면 작업 효율이 떨어져요.\n" +
+            "야근은 진행도를 더 올릴 수 있지만 컨디션 소모가 커요.\n" +
+            "야근하지 않으면 전체 컨디션이 조금 회복돼요."
+        ));
+
         _startButton.onClick.AddListener(OnStartClicked);
         _skipButton.onClick.AddListener(OnSkipClicked);
         _overtimeButton.onClick.AddListener(OnOvertimeClicked);
